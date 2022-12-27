@@ -2,8 +2,9 @@ export const routes = {
     HOME: '/',
     PRODUCT: '/products',
     CART: '/cart',
-    LOGIN: '/api/auth/login',
-    LOGOUT: '/api/auth/logout',
+    SignUp: '/sign/sign-up',
+    SignIn: '/sign/sign-in',
+    LOGOUT: '/api/firebase/logout',
     CATEGORY: {
         ELECTRONICS: '/products/electronics',
         MENSCLOTHING: '/products/men\'s clothing',
@@ -12,6 +13,7 @@ export const routes = {
     },
     ORDERS: '/orders',
     MYACCOUNT: '/account/my-account',
+    SINGLEPRODUCT:'/products/category'
 
 }
 

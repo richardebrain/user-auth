@@ -7,7 +7,7 @@ const ProductList = ({ product }: { product: IProduct[] }) => {
         return <div>Loading...</div>
     }
     return (
-        <div className='flex flex-wrap gap-16 items-center '>
+        <div className='flex flex-wrap gap-16 items-center justify-center '>
             {
                 product.map((product: IProduct) => {
                     return (

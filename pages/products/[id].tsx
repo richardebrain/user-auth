@@ -1,13 +1,11 @@
-import react from 'react';
-import { useRouter } from 'next/router';
+
 import axios from 'axios';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import ProductItem from '@components/product-item';
-import ProductList from '@components/product-list';
+import { GetStaticPaths, GetStaticProps, PreviewData } from 'next';
+import ProductList from '@components/products/product-list';
 import { IProduct } from '@helpers/types';
-const ProductPage = ({ data }:{data:IProduct[]}) => {
-    const route = useRouter();
-    console.log(data)
+import { ParsedUrlQuery } from 'querystring';
+
+const ProductPage = ({ data }: { data: IProduct[] }) => {
     if (!data) {
         return <div>Loading...</div>
     }
@@ -29,18 +27,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
     });
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
 }
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-    console.log(params?.id)
-    const res = await axios.get(` https://fakestoreapi.com/products/category/${params?.id}`);
-
+export const getStaticProps: GetStaticProps = async (ctx: { params?: ParsedUrlQuery; preview?: boolean; previewData?: PreviewData }) => {
+    const res = await axios.get(` https://fakestoreapi.com/products/category/${ctx.params?.id}`);
     const data = res.data;
 
     return {
         props: { data },
-
 
 
     }
