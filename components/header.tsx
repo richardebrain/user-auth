@@ -14,12 +14,15 @@ import { logout } from '@utils/Redux/user/user.slice'
 import CartIcon from './cart/CartIcon'
 import { toggleCartView } from '@utils/Redux/cart/cart.slice';
 
+interface RefObject<T> {
+    current: T | null;
+}
+
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
-    const ref = useRef<HTMLDivElement>()
-
+    const ref = useRef() as RefObject<HTMLDivElement>
     const dispatch = useAppDispatch()
     const userProfileDropdown = () => {
         setIsMenuOpen(prev => !prev);
@@ -40,7 +43,7 @@ const Header = () => {
     // }
 
     useEffect(() => {
-        const checkIfClickOutside = (e:any) => {
+        const checkIfClickOutside = (e: any) => {
 
             if (!hidden && ref.current && !ref?.current?.contains(e.target)) {
                 dispatch(toggleCartView())
