@@ -1,9 +1,9 @@
 import React from 'react'
 
-const AdrdessBook = () => {
+const AddressBook = () => {
   return (
     <div>AdrdessBook</div>
   )
 }
 
-export default AdrdessBook
+export default AddressBook

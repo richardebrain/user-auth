@@ -1,3 +1,6 @@
+import { AccountDetails } from "@components/my-account/AccountDetails";
+import AccountOverview from "@components/my-account/AccountOverview";
+import AddressBook from "@components/my-account/AdrdessBook";
 import React, { ReactComponentElement } from "react";
 import { Interface } from "readline";
 
@@ -50,10 +53,18 @@ export enum AccountSideBar {
 }
 
 export type AccountSideBarType = {
-    [key in AccountSideBar]: React.ReactNode  // I want to use this type in my component
+   currentView:keyof typeof Screens;
 }
 
-export type UserProps ={
+
+export const Screens = {
+    AccountOverviews:  AccountOverview,
+    AddressBooks: AddressBook,
+    AccountDetails: AccountDetails,
+
+}
+export const screenArray = Object.keys(Screens) as (keyof typeof Screens)[];
+export type UserProps = {
     picture?: string;
     id: string;
     displayName: string;
@@ -65,7 +76,7 @@ export type UserProps ={
     firstName: string;
     lastName: string;
 }
-export interface UserSnapSot{
+export interface UserSnapSot {
     displayName: string;
     email: string;
     createdAt: {

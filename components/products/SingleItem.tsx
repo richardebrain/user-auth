@@ -5,13 +5,13 @@ import CartIcon from '@public/images/icon-cart.svg'
 import IconMinus from '@public/images/icon-minus.svg'
 import IconPlus from '@public/images/icon-plus.svg'
 import { useAppDispatch, useAppSelector } from "@helpers/redux.hooks";
-import { incrementCart, decrementCart, addTocCart, removeCart } from "@utils/Redux/cart/cart.slice";
+import { addTocCart, removeCart } from "@utils/Redux/cart/cart.slice";
 
 const SingleItem = ({ product }: ProductItem) => {
     const { title, price, image, description } = product;
 
     const dispatch = useAppDispatch()
-    const {cartItems,count} = useAppSelector(state => state.cart)
+    const {cartItems} = useAppSelector(state => state.cart)
     const decrement = () => {
         if (getSpecificProduct(product) > 0) {
             dispatch(removeCart(product))
@@ -25,7 +25,7 @@ const SingleItem = ({ product }: ProductItem) => {
         const index = cartItems.find((item: IProduct) => item.id === product.id)
         return index?.quantity!! || 0
     }
-    const islast = count === 0;
+    const isLast = getSpecificProduct(product) === 0
 
     return (
 
@@ -47,7 +47,7 @@ const SingleItem = ({ product }: ProductItem) => {
                 </div>
                 <div className="cart flex items-center gap-8 justify-center">
                     <div className="flex bg-GB h-12 flex-1 rounded-md px-4 justify-between ter items-center">
-                        <button onClick={decrement} className={`cursor-pointer ${islast && 'disabled:cursor-not-allowed'} h-full`} >
+                        <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full`} >
                             <IconMinus />
                         </button>
                         <span className="text-Black font-bold text-2xl">{getSpecificProduct(product)}</span>

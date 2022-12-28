@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import HeaderLogo from '../public/images/logo.svg'
 import Image from 'next/image'
 import { headerTabs, routes } from '@helpers/routes';
@@ -12,23 +12,45 @@ import { deleteCookie } from 'cookies-next'
 import { cookiesKey } from '@helpers/methods'
 import { logout } from '@utils/Redux/user/user.slice'
 import CartIcon from './cart/CartIcon'
+import { toggleCartView } from '@utils/Redux/cart/cart.slice';
 
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isCartOpen, setIsCartOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
+    const ref = useRef<HTMLDivElement>()
 
     const dispatch = useAppDispatch()
     const userProfileDropdown = () => {
         setIsMenuOpen(prev => !prev);
     }
-    const {user:{user} , cart:{hidden}} = useAppSelector(state => state)
+    const { user: { user }, cart: { hidden } } = useAppSelector(state => state)
     useEffect(() => {
         if (isLoading) {
             window.location.reload()
         }
     }, [isLoading])
+
+    // const ClickOutside = (e) => {
+    //     if(ref instanceof HTMLElement){
+    //         if(ref.current.contains(e.target)){
+    //             return
+    //         }
+    //     }
+    // }
+
+    useEffect(() => {
+        const checkIfClickOutside = (e:any) => {
+
+            if (!hidden && ref.current && !ref?.current?.contains(e.target)) {
+                dispatch(toggleCartView())
+            }
+        }
+        document.addEventListener('mousedown', checkIfClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', checkIfClickOutside)
+        }
+    }, [hidden])
 
     const handleSignOut = async () => {
         await signOut(auth).then(() => {
@@ -60,9 +82,9 @@ const Header = () => {
             </div>
             <div className="nav-item flex gap-8 items-center">
                 <div >
-                    <CartIcon/>
+                    <CartIcon />
                     {!hidden &&
-                        <div className='top-24 right-32 absolute dropdown'>
+                        <div className='top-24 right-32 absolute dropdown' ref={ref}>
                             <Cart />
                         </div>
 

@@ -1,17 +1,18 @@
+import AccountOverview from "@components/my-account/AccountOverview";
 import { AccountSideBar, AccountSideBarType } from "@helpers/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import React from "react";
 
-const initialState = {
-    screen: AccountSideBar.ACCOUNT_OVERVIEW,
-
+const initialState: AccountSideBarType = {
+    currentView: 'AccountOverviews'
 }
 
 const screenSlice = createSlice({
     name: 'screen',
     initialState,
     reducers: {
-        setScreen: (state, action:PayloadAction<AccountSideBarType>) => {
-            state.screen = action.payload
+        setScreen: (state, action: PayloadAction<AccountSideBarType>)=> {
+            state.currentView = action.payload.currentView
         }
     }
 })
