@@ -121,6 +121,7 @@ const SignUp = () => {
 
                     />
                     {/* confirm password */}
+                    
                     <CustomInput
                         type='password'
                         placeholder='confirm password'

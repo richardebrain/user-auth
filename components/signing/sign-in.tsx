@@ -18,7 +18,6 @@ interface IForm {
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
-
   const router = useRouter()
   const userSchema = yup.object().shape({
     email: yup.string().email('Email is invalid').required('Email is required'),
@@ -27,17 +26,27 @@ const SignIn = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<IForm>({
     resolver: yupResolver(userSchema)
   });
-  const handleFormSubmit = ({ email, password }: IForm) => {
+  const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
-      signInWithEmailAndPassword(auth, email, password).then(res => {
+      await signInWithEmailAndPassword(auth, email, password).then(res => {
         setIsLoading(true)
         router.push('/')
       })
     }
     catch (error) {
       if (error instanceof Error) {
-        setError(error.message)
-        console.log('message', error.message)
+        if (error.message === 'Firebase: Error (auth/user-not-found).') {
+          setError('User not found')
+          setTimeout(() => {
+            setError('')
+          }, 3000)
+        } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
+          setError('wrong password')
+          setTimeout(() => {
+            setError('')
+          }, 3000)
+
+        }
       }
     }
 
@@ -58,12 +67,12 @@ const SignIn = () => {
   return (
     <div className=' flex flex-col items-center gap-3'>
       <div className='flex items-center gap-4 ' >
-        <hr className=' w-32 text-gray-700 border-t-2' />
-        <h2 className=' font-bold text-2xl text-gray-500'>Sign in to your existing account</h2>
-        <hr className=' w-32 text-gray-700 border-t-2' />
+        <hr className=' w-32 text-gray-900 border-t-2' />
+        <h2 className=' font-bold text-2xl '>Sign in to your existing account</h2>
+        <hr className=' w-32 text-gray-900 border-t-2' />
       </div>
-      <div className=' text-gray-500 flex flex-col gap-4 w-[40%]' onSubmit={handleSubmit(handleFormSubmit)} >
-        <h3>Welcome Back</h3>
+      <div className=' flex flex-col gap-4 w-[40%] ' onSubmit={handleSubmit(handleFormSubmit)} >
+        <h3 className='text-center'>Welcome Back!</h3>
         <form className='flex flex-col gap-6 '>
           {/* first and lastname */}
           <div className="flex gap-6 flex-col" >
@@ -80,17 +89,22 @@ const SignIn = () => {
 
             />
             {/* password */}
-            <CustomInput
-              type='password'
-              placeholder='Password'
-              required
-              register={register}
-              name='password'
-              error={errors.password?.message}
-              icon={<Eyes />}
-              className='w-full'
+            <div className='h-16 flex flex-col'>
 
-            />
+              <CustomInput
+                type='password'
+                placeholder='Password'
+                required
+                register={register}
+                name='password'
+                error={errors.password?.message}
+                icon={<Eyes />}
+                className='w-full'
+
+              />
+              {/* error */}
+              {error && <span className='text-red-500 mb-0 text-center'>{error}</span>}
+            </div>
           </div>
           <Button >{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In'}</Button>
 
