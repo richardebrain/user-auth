@@ -58,9 +58,9 @@ export type AccountSideBarType = {
 
 
 export const Screens = {
-    AccountOverviews:  AccountOverview,
-    AddressBooks: AddressBook,
-    AccountDetails: AccountDetails,
+    'Account Overview':  AccountOverview,
+    'Address Book': AddressBook,
+    'Account Detail': AccountDetails,
 
 }
 export const screenArray = Object.keys(Screens) as (keyof typeof Screens)[];

@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import React from "react";
 
 const initialState: AccountSideBarType = {
-    currentView: 'AccountOverviews'
+    currentView: 'Account Overview'
 }
 
 const screenSlice = createSlice({

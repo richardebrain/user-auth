@@ -7,10 +7,11 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import Router, { useRouter } from 'next/router'
 import Spinner from '../Spinner'
-import { auth, createUserProfileDocument } from '@utils/firebase'
+import { auth, createUserProfileDocument, googleSignIn } from '@utils/firebase'
 import Link from 'next/link'
 import { routes } from '@helpers/routes'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import Eye from '../../public/images/eyes.svg'
 
 interface IForm {
     firstname: string,
@@ -37,7 +38,7 @@ const SignUp = () => {
         resolver: yupResolver(userSchema)
     });
 
-    const useHandleFormSubmit = async ({ email, password, firstname, lastname,username }: IForm) => {
+    const useHandleFormSubmit = async ({ email, password, firstname, lastname, username }: IForm) => {
         try {
             const { user } = await createUserWithEmailAndPassword(auth, email, password)
 
@@ -54,6 +55,7 @@ const SignUp = () => {
 
         }
     }
+ 
 
     return (
         <div className=' flex flex-col items-center gap-3 w-full'>
@@ -115,6 +117,7 @@ const SignUp = () => {
                         register={register}
                         name='password'
                         error={errors.password?.message}
+                        icon={<Eye />}
 
                     />
                     {/* confirm password */}
@@ -125,6 +128,7 @@ const SignUp = () => {
                         register={register}
                         name='confirmPassword'
                         error={errors.confirmPassword?.message}
+                        icon={<Eye />}
 
                     />
                     {/* error */}

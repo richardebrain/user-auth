@@ -37,9 +37,9 @@ const Layout = ({ children }: LayoutProps) => {
     }, [dispatch])
 
     return (
-        <div className='h-[100vh]'>
+        <div className='h-[100vh] bg-gray-50'>
             <Header />
-            <main className='mx-auto w-[80%] mt-10'>
+            <main className='mx-auto w-[80%] mt-10 '>
                 {children}
             </main>
 
