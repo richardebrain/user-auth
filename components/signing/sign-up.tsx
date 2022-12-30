@@ -55,7 +55,7 @@ const SignUp = () => {
 
         }
     }
- 
+
 
     return (
         <div className=' flex flex-col items-center gap-3 w-full'>
@@ -121,7 +121,7 @@ const SignUp = () => {
 
                     />
                     {/* confirm password */}
-                    
+
                     <CustomInput
                         type='password'
                         placeholder='confirm password'

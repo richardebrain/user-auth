@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { Auth, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithPopup, signOut } from "firebase/auth";
 import { get, getDatabase, ref, set } from "firebase/database";
 import { collection, doc, DocumentReference, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { logout } from "./Redux/user/user.slice";
@@ -66,6 +66,14 @@ export const googleSignIn = () => {
     const { code, message, email, credential } = error;
     console.log(code, message, email, credential)
   })
-  
-
 }
+
+// export const forgetPassword = async ( email: string) => {
+//   try {
+//     await sendPasswordResetEmail(auth, email).then(() => {
+//       alert('reset sent successfully')
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }

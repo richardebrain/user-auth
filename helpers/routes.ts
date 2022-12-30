@@ -13,7 +13,8 @@ export const routes = {
     },
     ORDERS: '/orders',
     MYACCOUNT: '/account/my-account',
-    SINGLEPRODUCT:'/products/category'
+    SINGLEPRODUCT:'/products/category',
+    RESETPASSWORD: '/sign/password-reset',
 
 }
 

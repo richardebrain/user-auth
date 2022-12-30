@@ -17,7 +17,7 @@ type InputProps = {
 
 }
 
-const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error, icon, className, ...otherProps }) => {
+const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error, touched, icon, className, ...otherProps }) => {
 
     const [showPassword, setShowPassword] = React.useState(false)
 
@@ -27,14 +27,17 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error,
                 label && <label htmlFor={name} className='text-black'>{label}</label>
             }
             <div className='relative flex flex-col'>
-                <span className={`absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer ${showPassword ? 'text-grey-500 ': 'text-white'}`} onClick={() => setShowPassword(state => !state)}>
+                <span className={`absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer ${showPassword ? 'text-black ' : 'text-gray-500'}`} onClick={() => setShowPassword(state => !state)}>
                     {icon}
-                    
+
                 </span>
 
-                <input type={showPassword ? 'text' : type} {...otherProps} {...register(name)}
-                    className={`border-b border-Black outline-none bg-Black pt-2 text-White rounded-md px-2 placeholder:text-White h-12 focus:bg-Black ${className}}`}
-
+                <input
+                    type={showPassword ? 'text' : type}
+                    {...otherProps}
+                    {...register(name)}
+                    className={`outline-none bg-white pt-3 focus:border-black text-black rounded-md px-2 placeholder:text-black h-12 border border-gray-400 ${className}}`}
+                    {...touched && error && { className: 'border-red-500' }}
                 />
 
             </div>

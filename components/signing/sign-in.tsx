@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, googleSignIn } from '@utils/firebase'
 import Eyes from '../../public/images/eyes.svg'
+
 interface IForm {
   email: string,
   password: string
@@ -37,17 +38,13 @@ const SignIn = () => {
       if (error instanceof Error) {
         if (error.message === 'Firebase: Error (auth/user-not-found).') {
           setError('User not found')
-          setTimeout(() => {
-            setError('')
-          }, 3000)
         } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
           setError('wrong password')
-          setTimeout(() => {
-            setError('')
-          }, 3000)
 
         }
+        console.log(error.message)
       }
+
     }
 
   }
@@ -64,16 +61,18 @@ const SignIn = () => {
 
     }
   }
+
+
   return (
-    <div className=' flex flex-col items-center gap-3'>
+    <div className={`flex flex-col items-center gap-3`}>
       <div className='flex items-center gap-4 ' >
         <hr className=' w-32 text-gray-900 border-t-2' />
         <h2 className=' font-bold text-2xl '>Sign in to your existing account</h2>
         <hr className=' w-32 text-gray-900 border-t-2' />
       </div>
-      <div className=' flex flex-col gap-4 w-[40%] ' onSubmit={handleSubmit(handleFormSubmit)} >
+      <div className=' flex flex-col gap-4 w-[40%] '  >
         <h3 className='text-center'>Welcome Back!</h3>
-        <form className='flex flex-col gap-6 '>
+        <form className='flex flex-col gap-6 ' onSubmit={handleSubmit(handleFormSubmit)}>
           {/* first and lastname */}
           <div className="flex gap-6 flex-col" >
 
@@ -103,15 +102,18 @@ const SignIn = () => {
 
               />
               {/* error */}
-              {error && <span className='text-red-500 mb-0 text-center'>{error}</span>}
+              {error && <span className='text `-red-500 mb-0 text-center'>{error}</span>}
             </div>
           </div>
-          <Button >{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In'}</Button>
+          <Button type='submit' >{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In'}</Button>
 
         </form>
-        <div className='flex gap-4'>
+        {/* other properties */}
+        <div className='flex gap-2 flex-col'>
+          {/* forget password */}
+          <Link href={routes.RESETPASSWORD} className='text-blue-400 hover:text-blue-800 cursor-pointer w-fit'>Forgot Password ?</Link>
           <p className=' text-black font-bold'>Don&apos;t have an account ?</p>
-          <Link href={`${routes.SignUp}`} className='text-blue-900 font-bold hover:text-blue-700'>Sign up now</Link>
+          <Link href={`${routes.SignUp}`} className='text-blue-900 font-bold hover:text-blue-700 w-fit'>Sign up now</Link>
         </div>
         <div className='w-full flex flex-col items-center'>
           <p>Or</p>

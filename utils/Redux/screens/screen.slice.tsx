@@ -5,6 +5,7 @@ import React from "react";
 
 const initialState: AccountSideBarType = {
     currentView: 'Account Overview'
+    
 }
 
 const screenSlice = createSlice({
@@ -13,7 +14,8 @@ const screenSlice = createSlice({
     reducers: {
         setScreen: (state, action: PayloadAction<AccountSideBarType>)=> {
             state.currentView = action.payload.currentView
-        }
+        },
+
     }
 })
 export const { setScreen } = screenSlice.actions

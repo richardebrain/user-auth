@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./Redux/cart/cart.slice";
+import modalSlice from "./Redux/modals/modal.slice";
 import screenSlice from "./Redux/screens/screen.slice";
 import userSlice from "./Redux/user/user.slice";
 
@@ -7,7 +8,8 @@ export const store = configureStore({
     reducer: {
         cart: cartSlice,
         screen: screenSlice,
-        user:userSlice
+        user:userSlice,
+        modal: modalSlice
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
