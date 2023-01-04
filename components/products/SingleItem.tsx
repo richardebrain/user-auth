@@ -37,6 +37,7 @@ const SingleItem = ({ product }: ProductItem) => {
                 loader={ImageLoader}
                 alt={title}
                 width={200}
+                blurDataURL={image.toString()}
                 height={200}
                 priority
                 className='w-auto h-auto'

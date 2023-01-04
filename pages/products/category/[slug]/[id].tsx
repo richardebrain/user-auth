@@ -1,6 +1,7 @@
 import SingleItem from '@components/products/SingleItem'
-import { ProductItem } from '@helpers/types'
+import { IProduct, ProductItem } from '@helpers/types'
 import axios from 'axios'
+import { IPVersion } from 'net'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -32,13 +33,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const res = await axios.get(`https://fakestoreapi.com/products/${params?.id}`);
   
-    const product = res.data;
+    const product:IProduct = res.data;
 
     if (!res.status) {
         // If there is a server error, you might want to
         // throw an error instead of returning so that the cache is not updated
         // until the next successful request.
-        throw new Error(`Failed to fetch posts, received status ${res.status}`)
+        throw new Error(`Failed to fetch products, received status ${res.status}`)
       }
     return {
         props: { product },

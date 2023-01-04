@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { routes } from '@helpers/routes'
 import { shortenTitle } from '@helpers/methods'
+import ImageLoader from '@components/ImageLoader'
 
 const ProductItem = ({ product }: { product: IProduct }) => {
     return (
@@ -11,7 +12,9 @@ const ProductItem = ({ product }: { product: IProduct }) => {
             <div className='flex mt-8'>
                 <Image
                     src={product.image}
+                    loader={ImageLoader}
                     alt={product.title}
+                    blurDataURL={product.image.toString()}
                     width={80}
                     height={80}
                     priority
