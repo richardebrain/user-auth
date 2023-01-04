@@ -18,6 +18,7 @@ interface IForm {
 }
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
   const userSchema = yup.object().shape({
@@ -30,8 +31,9 @@ const SignIn = () => {
   const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(res => {
+      
         setIsLoading(true)
-        router.push('/')
+         router.push('/')
       })
     }
     catch (error) {
@@ -52,7 +54,7 @@ const SignIn = () => {
     try {
       const user = googleSignIn()
       if (user!) {
-        setIsLoading(true)
+        setIsGoogleLoading(true)
         router.push('/')
 
       }
@@ -117,7 +119,7 @@ const SignIn = () => {
         </div>
         <div className='w-full flex flex-col items-center'>
           <p>Or</p>
-          <Button isGoogleSignIn onClick={() => handleGoogleSignIn()}>{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In with Google'}</Button>
+          <Button isGoogleSignIn onClick={() => handleGoogleSignIn()}>{isGoogleLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In with Google'}</Button>
 
         </div>
       </div>

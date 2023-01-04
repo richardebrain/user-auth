@@ -1,5 +1,4 @@
 import React, { ReactComponentElement } from 'react';
-import Image2 from 'next/image';
 
 type InputProps = {
     type: string,

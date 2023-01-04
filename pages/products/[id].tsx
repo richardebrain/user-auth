@@ -10,7 +10,7 @@ const ProductPage = ({ data }: { data: IProduct[] }) => {
         return <div>Loading...</div>
     }
     return (
-        <div>
+        <div className='mx-auto'>
             <ProductList product={data} />
         </div>
     );
@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     });
     return {
         paths,
-        fallback: true,
+        fallback: 'blocking',
     };
 }
 export const getStaticProps: GetStaticProps = async (ctx: { params?: ParsedUrlQuery; preview?: boolean; previewData?: PreviewData }) => {

@@ -1,7 +1,6 @@
 import SingleItem from '@components/products/SingleItem'
-import { IProduct, ProductItem } from '@helpers/types'
+import { ProductItem } from '@helpers/types'
 import axios from 'axios'
-import { readv } from 'fs'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import React from 'react'
@@ -9,7 +8,7 @@ import React from 'react'
 const SingleProductPage = ({ product }: ProductItem) => {
     if(!product) return <div>loading...</div>
     return (
-        <div>
+        <div className='mx-auto'>
             <Head key={'page2'}>
                 <title>{product.title}</title>
             </Head>
@@ -32,6 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const res = await axios.get(`https://fakestoreapi.com/products/${params?.id}`);
+  
     const product = res.data;
 
     if (!res.status) {

@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { routes } from '@helpers/routes'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import Eye from '../../public/images/eyes.svg'
+import { setCookie } from 'cookies-next'
+import { cookiesKey } from '@helpers/methods'
 
 interface IForm {
     firstname: string,
@@ -40,8 +42,7 @@ const SignUp = () => {
 
     const useHandleFormSubmit = async ({ email, password, firstname, lastname, username }: IForm) => {
         try {
-            const { user } = await createUserWithEmailAndPassword(auth, email, password)
-
+            const {user} = await createUserWithEmailAndPassword(auth, email, password)
             await createUserProfileDocument(user, { displayName: username, firstName: firstname, lastName: lastname })
             setIsLoading(true)
             router.push('/')
@@ -141,9 +142,9 @@ const SignUp = () => {
                         {isLoading ? <Spinner width="20" fill="white" className="animate-spin" /> : 'Sign Up'}
                     </Button>
                 </form>
-                <div>
-                    <p>user Exist ?</p>
-                    <Link href={`${routes.SignIn}`} >Sign In</Link>
+                <div className=' flex  gap-4 items-center'>
+                    <p  className='w-fit font-semibold text-black'>User Exist ?</p>
+                    <Link href={`${routes.SignIn}`}  className='text-blue-900 font-bold hover:text-blue-700 w-fit'>Sign In</Link>
                 </div>
             </div>
         </div>

@@ -4,13 +4,14 @@ import Image2 from "next/image";
 import CartIcon from '@public/images/icon-cart.svg'
 import IconMinus from '@public/images/icon-minus.svg'
 import IconPlus from '@public/images/icon-plus.svg'
-import { useAppDispatch, useAppSelector } from "@helpers/redux.hooks";
+import { useAppSelector } from "@helpers/redux.hooks";
 import { addTocCart, removeCart } from "@utils/Redux/cart/cart.slice";
+import { useDispatch } from "react-redux";
 
 const SingleItem = ({ product }: ProductItem) => {
     const { title, price, image, description } = product;
 
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const {cartItems} = useAppSelector(state => state.cart)
     const decrement = () => {
         if (getSpecificProduct(product) > 0) {
@@ -29,7 +30,7 @@ const SingleItem = ({ product }: ProductItem) => {
 
     return (
 
-        <div className='bg-White px-4 mb-10 py-4 flex items-center gap-20 mt-20 font-kumbh justify-center'>
+        <div className='bg-White px-4 mb-10 py-4 flex flex-col xs:flex-row items-center gap-20 mt-20 font-kumbh justify-center'>
             <Image2
                 src={image}
                 alt={title}
@@ -38,15 +39,15 @@ const SingleItem = ({ product }: ProductItem) => {
                 priority
                 className='w-auto h-auto'
             />
-            <div className="flex justicy-between gap-5 flex-col max-w-md tracking-wide">
+            <div className="flex justify-between gap-5 flex-col max-w-md tracking-wide">
                 <h2 className='text-xl font-bold text-Orange'>Richard&apos;s Decko</h2>
                 <h1 className='text-Black font-bold text-4xl'>{shortenTitle(title, 310)}</h1>
                 <p className=" text-DGB font-kumbh">{description}</p>
                 <div className="flex justify-between text-Black">
                     <span className=' font-bold text-3xl text-black '>${price}</span>
                 </div>
-                <div className="cart flex items-center gap-8 justify-center">
-                    <div className="flex bg-GB h-12 flex-1 rounded-md px-4 justify-between ter items-center">
+                <div className="cart flex items-center xs:gap-8 gap-4 justify-center">
+                    <div className="flex bg-GB h-12 flex-1 w-20 rounded-md sm:px-4 px-2 justify-between  items-center">
                         <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full`} >
                             <IconMinus />
                         </button>
@@ -56,7 +57,7 @@ const SingleItem = ({ product }: ProductItem) => {
                         </button>
 
                     </div>
-                    <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 w-60 rounded-md " onClick={()=> dispatch(addTocCart(product))}>
+                    <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 xs:w-52 w-48  rounded-md " onClick={()=> dispatch(addTocCart(product))}>
                         <CartIcon />
                         <span>Add to cart</span>
                     </button>

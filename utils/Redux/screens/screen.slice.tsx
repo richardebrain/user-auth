@@ -8,7 +8,7 @@ const initialState: AccountSideBarType = {
     
 }
 
-const screenSlice = createSlice({
+export const screenSlice = createSlice({
     name: 'screen',
     initialState,
     reducers: {

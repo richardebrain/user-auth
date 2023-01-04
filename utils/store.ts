@@ -1,20 +1,32 @@
-import { configureStore } from "@reduxjs/toolkit";
-import cartSlice from "./Redux/cart/cart.slice";
-import modalSlice from "./Redux/modals/modal.slice";
-import screenSlice from "./Redux/screens/screen.slice";
-import userSlice from "./Redux/user/user.slice";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
+import { cartSlice } from "./Redux/cart/cart.slice";
+import { modalSlice } from "./Redux/modals/modal.slice";
+import { screenSlice } from "./Redux/screens/screen.slice";
+import { userSlice } from "./Redux/user/user.slice";
 
-export const store = configureStore({
+const makeStore = () => configureStore({
     reducer: {
-        cart: cartSlice,
-        screen: screenSlice,
-        user:userSlice,
-        modal: modalSlice
+        [cartSlice.name]: cartSlice.reducer,
+        [screenSlice.name]: screenSlice.reducer,
+        [userSlice.name]: userSlice.reducer,
+        [modalSlice.name]: modalSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
-    })
+    }),
+    devTools: true
 })
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type AppStore = ReturnType<typeof makeStore>;
+export type AppDispatch = AppStore["dispatch"];
+export type AppState = ReturnType<AppStore["getState"]>
+export type AppThunk<ReturnType = void> = ThunkAction<
+
+    ReturnType,
+    AppState,
+    unknown,
+    Action
+>
+
+export const wrapper = createWrapper<AppStore>(makeStore)

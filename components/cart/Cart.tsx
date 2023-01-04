@@ -1,4 +1,4 @@
-import { IProduct, ProductItem } from '@helpers/types'
+import { IProduct } from '@helpers/types'
 import { useAppSelector } from '@helpers/redux.hooks'
 import React from 'react'
 import CartItem from './CartItem'

@@ -3,8 +3,8 @@ import React from 'react'
 import Image2 from 'next/image'
 import { shortenTitle } from '@helpers/methods'
 import DeleteIcon from '@public/images/icon-delete.svg'
-import { useAppDispatch } from '@helpers/redux.hooks'
 import { deleteCart } from '@utils/Redux/cart/cart.slice'
+import { useAppDispatch } from '@helpers/redux.hooks'
 
 const CartItem = ({ product }: ProductItem) => {
     const getPrice = () => {

@@ -1,10 +1,10 @@
 // Import the functions you need from the SDKs you need
+import { cookiesKey } from "@helpers/methods";
+import { UserProps, UserSnapSot } from "@helpers/types";
+import { setCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { Auth, createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithPopup, signOut } from "firebase/auth";
-import { get, getDatabase, ref, set } from "firebase/database";
-import { collection, doc, DocumentReference, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { logout } from "./Redux/user/user.slice";
+import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
+import { collection, doc, getDoc, getFirestore, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -29,7 +29,10 @@ const users = collection(db, 'users');
 
 export const createUserProfileDocument = async (userAuth: any, additionalData?: any) => {
   if (!userAuth) return;
+
+  // setCookie(cookiesKey.user, userAuth.accessToken)
   const userRef = doc(users, `${userAuth.uid}`);
+
   const snapShot = await getDoc(userRef);
   if (!snapShot.exists()) {
     const { displayName, email } = userAuth;
@@ -49,7 +52,51 @@ export const createUserProfileDocument = async (userAuth: any, additionalData?: 
         console.log('error creating user', error?.message);
     }
   }
-  return userRef;
+
+  return userRef
+}
+
+export const updateUserProfileDisplayName = async (userAuth: any) => {
+  if (!userAuth) return;
+  const userRef = doc(users, `${userAuth.uid}`);
+  const snapShot = await getDoc(userRef);
+  if (snapShot.exists()) {
+    const { displayName } = userAuth;
+    const updatedAt = new Date()
+    console.log(displayName, 'displayName')
+    try {
+      await updateDoc(userRef, {
+        updatedAt: serverTimestamp(),
+        displayName
+
+      })
+    } catch (error) {
+      if (error instanceof Error)
+        console.log('error updating user', error?.message);
+    }
+    return userRef;
+  }
+}
+export const updateUserProfileEmail = async (userAuth: any) => {
+  if (!userAuth) return;
+  const userRef = doc(users, `${userAuth.uid}`);
+  const snapShot = await getDoc(userRef);
+  if (snapShot.exists()) {
+    const { email } = userAuth;
+  
+    console.log(email, 'email')
+    try {
+      await updateDoc(userRef, {
+        updatedAt: serverTimestamp(),
+        email
+
+      })
+    } catch (error) {
+      if (error instanceof Error)
+        console.log('error updating user', error?.message);
+    }
+    return userRef;
+  }
 }
 
 const provider = new GoogleAuthProvider();
@@ -67,13 +114,3 @@ export const googleSignIn = () => {
     console.log(code, message, email, credential)
   })
 }
-
-// export const forgetPassword = async ( email: string) => {
-//   try {
-//     await sendPasswordResetEmail(auth, email).then(() => {
-//       alert('reset sent successfully')
-//     })
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
