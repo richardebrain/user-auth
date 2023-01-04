@@ -7,6 +7,7 @@ import IconPlus from '@public/images/icon-plus.svg'
 import { useAppSelector } from "@helpers/redux.hooks";
 import { addTocCart, removeCart } from "@utils/Redux/cart/cart.slice";
 import { useDispatch } from "react-redux";
+import ImageLoader from "@components/ImageLoader";
 
 const SingleItem = ({ product }: ProductItem) => {
     const { title, price, image, description } = product;
@@ -30,9 +31,10 @@ const SingleItem = ({ product }: ProductItem) => {
 
     return (
 
-        <div className='bg-White px-4 mb-10 py-4 flex flex-col xs:flex-row items-center gap-20 mt-20 font-kumbh justify-center'>
+        <div className='bg-White px-4 mb-10 py-4 flex flex-col xs:flex-row items-center gap-20 mt-20 font-kumbh justify-center w-[90%] mx-auto xs:w-full'>
             <Image2
                 src={image}
+                loader={ImageLoader}
                 alt={title}
                 width={200}
                 height={200}
@@ -47,12 +49,12 @@ const SingleItem = ({ product }: ProductItem) => {
                     <span className=' font-bold text-3xl text-black '>${price}</span>
                 </div>
                 <div className="cart flex items-center xs:gap-8 gap-4 justify-center">
-                    <div className="flex bg-GB h-12 flex-1 w-20 rounded-md sm:px-4 px-2 justify-between  items-center">
-                        <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full`} >
+                    <div className="flex bg-GB h-12 flex-1 w-20 rounded-md sm:px-4  justify-between  items-center">
+                        <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full w-8 px-4`} >
                             <IconMinus />
                         </button>
                         <span className="text-Black font-bold text-2xl">{getSpecificProduct(product)}</span>
-                        <button className="cursor-pointer h-full" onClick={increment}>
+                        <button className="cursor-pointer h-full pl-1 w-8 text-center" onClick={increment}>
                             <IconPlus />
                         </button>
 
