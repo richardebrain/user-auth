@@ -8,6 +8,7 @@ export const modalSlice = createSlice({
     initialState: {
         modal: false,
         accountBar: true,
+        sidebarView:true
     },
     reducers: {
         toggleModal: (state) => {
@@ -15,7 +16,11 @@ export const modalSlice = createSlice({
         },
         toggleAccountBar: (state) => {
             state.accountBar = !state.accountBar
+        },
+        toggleSidebar: (state) => {
+            state.sidebarView = !state.sidebarView
         }
+
 
     },
     extraReducers:{
@@ -29,6 +34,6 @@ export const modalSlice = createSlice({
     }
 })
 
-export const { toggleModal,toggleAccountBar } = modalSlice.actions;
+export const { toggleModal,toggleAccountBar,toggleSidebar } = modalSlice.actions;
 export const selectModal = (state: AppState) => state.modal;
 export default modalSlice.reducer;

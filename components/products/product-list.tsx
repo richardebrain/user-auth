@@ -1,8 +1,11 @@
 import React from 'react'
 import { IProduct } from '@helpers/types'
 import ProductItem from './product-item'
+type ProductListProps = {
+    product: IProduct[]
 
-const ProductList = ({ product }: { product: IProduct[] }) => {
+}
+const ProductList = ({ product}: ProductListProps) => {
     if (!product) {
         return <div>Loading...</div>
     }

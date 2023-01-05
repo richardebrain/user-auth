@@ -14,15 +14,17 @@ import { logout } from '@utils/Redux/user/user.slice'
 import CartIcon from './cart/CartIcon'
 import { toggleCartView } from '@utils/Redux/cart/cart.slice';
 import RefreshHook from '@helpers/hooks/refresh-hook';
-import { toggleAccountBar } from '@utils/Redux/modals/modal.slice';
-
+import { toggleAccountBar, toggleSidebar } from '@utils/Redux/modals/modal.slice';
+import MenuIcon from '../public/images/menu-icon.svg'
+import Sidebar from './sidebar';
+import CloseIcon from '../public/images/icon-close.svg'
 
 const Header = () => {
     const [isLoading, setIsLoading] = useState(false)
     // const ref = useRef() as RefObject<HTMLDivElement>
     const dispatch = useAppDispatch()
 
-    const { user: { user }, cart: { hidden }, modal: { accountBar } } = useAppSelector(state => state)
+    const { user: { user }, cart: { hidden }, modal: { accountBar, sidebarView } } = useAppSelector(state => state)
     useEffect(() => {
         if (isLoading) {
             window.location.reload()
@@ -30,6 +32,7 @@ const Header = () => {
     }, [isLoading])
     const { ref: cartRef } = RefreshHook({ view: hidden, toggleView: toggleCartView })
     const { ref: accountRef } = RefreshHook({ view: accountBar, toggleView: toggleAccountBar })
+    const { ref: sidebarRef } = RefreshHook({ view: sidebarView, toggleView: toggleSidebar })
     const handleSignOut = async () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
@@ -40,7 +43,7 @@ const Header = () => {
     }
 
     return (
-        <header className=' h-32 w-[80%] border-b-2 pb-0 flex justify-between  items-center mx-auto font-kumbh'>
+        <header className=' h-32 w-full px-5 xs:px-0 xs:w-[80%] border-b-2 pb-0 flex justify-between  items-center mx-auto font-kumbh'>
             <div className='flex flex-1 gap-20'>
 
                 <div className="nav-item">
@@ -57,6 +60,21 @@ const Header = () => {
 
                 </div>
             </div>
+            {/* mobile view */}
+            <div className='flex xs:hidden flex-col relative' onClick={() => dispatch(toggleSidebar())} >
+                {sidebarView ?
+                    <MenuIcon className='cursor-pointer'/>
+                    :
+                    <CloseIcon className='cursor-pointer'/>
+                }
+                {/* sidebar */}
+                {!sidebarView ?
+                    <div className='flex xs:hidden flex-col w-72 absolute bg-gray-100 top-[4.7rem] -right-5 h-[100vh] transition-all' ref={sidebarRef}  >
+                        <Sidebar />
+                    </div> : null}
+            </div>
+
+            {/* desktop view */}
             <div className="hidden nav-item xs:flex gap-8 items-center">
                 <div >
                     <CartIcon />

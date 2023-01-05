@@ -1,19 +1,27 @@
 import SingleItem from '@components/products/SingleItem'
-import { IProduct, ProductItem } from '@helpers/types'
+import { IProduct } from '@helpers/types'
 import axios from 'axios'
-import { IPVersion } from 'net'
+
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
+
 import React from 'react'
 
-const SingleProductPage = ({ product }: ProductItem) => {
+type SingleProductPageProps = {
+    product: IProduct
+  
+}
+
+
+
+const SingleProductPage = ({ product }: SingleProductPageProps) => {
     if(!product) return <div>loading...</div>
     return (
         <div className='mx-auto'>
             <Head key={'page2'}>
                 <title>{product.title}</title>
             </Head>
-            <SingleItem product={product} />
+            <SingleItem product={product}/>
         </div>
     )
 }
@@ -32,6 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const res = await axios.get(`https://fakestoreapi.com/products/${params?.id}`);
+
   
     const product:IProduct = res.data;
 
@@ -42,7 +51,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         throw new Error(`Failed to fetch products, received status ${res.status}`)
       }
     return {
-        props: { product },
+        props: { 
+            product,
+            
+         },
     }
 
 
