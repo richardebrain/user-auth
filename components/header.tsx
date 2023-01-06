@@ -41,10 +41,19 @@ const Header = () => {
 
         })
     }
+useEffect(() => {
+    // disable scroll when sidebar is open
+    if (!sidebarView) {
+        document.body.style.overflow = 'hidden'
+    }
+    else {
+        document.body.style.overflow = 'unset'
+    }
 
+},[sidebarView])
     return (
-        <header className=' h-32 w-full px-5 xs:px-0 xs:w-[80%] border-b-2 pb-0 flex justify-between  items-center mx-auto font-kumbh'>
-            <div className='flex flex-1 gap-20'>
+        <header className=' h-16 xs:h-32 w-full px-5 xs:px-0 xs:w-[80%] border-b-2 pb-0 flex justify-between  items-center mx-auto font-kumbh'>
+            <div className='flex flex-1 gap-20 overflow-hidden'>
 
                 <div className="nav-item">
                     <Link href="/"><HeaderLogo /></Link>
@@ -63,15 +72,15 @@ const Header = () => {
             {/* mobile view */}
             <div className='flex xs:hidden flex-col relative' onClick={() => dispatch(toggleSidebar())} >
                 {sidebarView ?
-                    <MenuIcon className='cursor-pointer'/>
+                    <MenuIcon className='cursor-pointer' />
                     :
-                    <CloseIcon className='cursor-pointer'/>
+                    <CloseIcon className='cursor-pointer' />
                 }
                 {/* sidebar */}
-                {!sidebarView ?
-                    <div className='flex xs:hidden flex-col w-72 absolute bg-gray-100 top-[4.7rem] -right-5 h-[100vh] transition-all' ref={sidebarRef}  >
+                {!sidebarView &&
+                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] animate-animateRight -right-5 z-50 w-72 `} ref={sidebarRef}  >
                         <Sidebar />
-                    </div> : null}
+                    </div>}
             </div>
 
             {/* desktop view */}
