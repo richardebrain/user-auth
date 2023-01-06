@@ -31,7 +31,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
                     height={80}
                     priority
                     className={`w-32 h-40 z-10 `}
-                onLoad={() => setImageLoading(false)}
+                    onLoad={() => setImageLoading(false)}
                 />
 
             </div>

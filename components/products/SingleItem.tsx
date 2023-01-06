@@ -81,17 +81,17 @@ const SingleItem = ({ product }: SingleItemProps) => {
                     <span className=' font-bold text-3xl text-black '>${price}</span>
                 </div>
                 <div className="cart flex items-center xs:gap-8 gap-4 justify-center">
-                    <div className="flex bg-GB h-12 flex-1 w-20 rounded-md sm:px-4  justify-between  items-center">
-                        <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full w-8 px-4`} >
+                    <div className="flex bg-GB h-12 flex-1 w-28 xs:w-16 rounded-md sm:px-4  justify-between  items-center">
+                        <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full w-8 xs:w-12 px-4`} >
                             <IconMinus />
                         </button>
                         <span className="text-Black font-bold text-2xl">{getSpecificProduct(product)}</span>
-                        <button className="cursor-pointer h-full pl-1 w-8 text-center" onClick={increment}>
+                        <button className="cursor-pointer h-full pl-1 w-8 xs-w-12 text-center" onClick={increment}>
                             <IconPlus />
                         </button>
 
                     </div>
-                    <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 xs:w-52 w-48  rounded-md " onClick={() => dispatch(addTocCart(product))}>
+                    <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 xs:w-52 w-40  rounded-md " onClick={() => dispatch(addTocCart(product))}>
                         <CartIcon />
                         <span>Add to cart</span>
                     </button>

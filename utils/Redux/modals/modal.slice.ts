@@ -20,8 +20,6 @@ export const modalSlice = createSlice({
         toggleSidebar: (state) => {
             state.sidebarView = !state.sidebarView
         }
-
-
     },
     extraReducers:{
         [HYDRATE]: (state, action) => {
@@ -30,7 +28,6 @@ export const modalSlice = createSlice({
                 ...action.payload.modal
             }
         }
-
     }
 })
 

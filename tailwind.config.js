@@ -26,6 +26,7 @@ module.exports = {
     },
     animation: {
       'right': "right 1s ease-in-out",
+      'left': "left 1s ease-in-out",
     },
     keyframes: {
       'right': {
@@ -33,6 +34,10 @@ module.exports = {
         "100%": { transform: "translateX(0%)" },
 
       },
+      'left':{
+        "0%": { transform: "translateX(-100%)" },
+        "100%": { transform: "translateX(0%)" },
+      }
   
 
     },
