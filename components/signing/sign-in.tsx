@@ -26,7 +26,8 @@ const SignIn = () => {
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   })
   const { register, handleSubmit, formState: { errors } } = useForm<IForm>({
-    resolver: yupResolver(userSchema)
+    resolver: yupResolver(userSchema),
+     
   });
   const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
@@ -68,11 +69,11 @@ const SignIn = () => {
   return (
     <div className={`flex flex-col items-center gap-3`}>
       <div className='flex items-center gap-4 ' >
-        <hr className=' w-32 text-gray-900 border-t-2' />
+        <hr className=' w-32 text-gray-900 border-t-2 hidden xs:block' />
         <h2 className=' font-bold text-2xl '>Sign in to your existing account</h2>
-        <hr className=' w-32 text-gray-900 border-t-2' />
+        <hr className=' w-32 text-gray-900 border-t-2 hidden xs:block' />
       </div>
-      <div className=' flex flex-col gap-4 w-[40%] '  >
+      <div className=' flex flex-col gap-4 w-72 xs:w-[40%] '  >
         <h3 className='text-center'>Welcome Back!</h3>
         <form className='flex flex-col gap-6 ' onSubmit={handleSubmit(handleFormSubmit)}>
           {/* first and lastname */}
@@ -119,7 +120,7 @@ const SignIn = () => {
         </div>
         <div className='w-full flex flex-col items-center'>
           <p>Or</p>
-          <Button isGoogleSignIn onClick={() => handleGoogleSignIn()}>{isGoogleLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In with Google'}</Button>
+          <Button isGoogleSignIn onClick={() => handleGoogleSignIn()}>{isGoogleLoading ? <Spinner width="20" fill="white" className="text-center animate-spin" /> : 'Sign In with Google'}</Button>
 
         </div>
       </div>

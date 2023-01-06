@@ -59,17 +59,16 @@ const SignUp = () => {
 
 
     return (
-        <div className=' flex flex-col items-center gap-3 w-full'>
+        <div className=' flex flex-col items-center gap-8 w-full'>
             <div className='flex items-center gap-4 ' >
-                <hr className=' w-32 text-gray-700 border-t-2' />
-                <h2 className=' font-bold text-2xl text-gray-500'>I do not have an Account</h2>
-                <hr className=' w-32 text-gray-700 border-t-2' />
+                <hr className=' w-32 text-gray-700 border-t-2 hidden xs:block' />
+                <h2 className=' font-bold text-2xl text-black'>Create A New Account Today</h2>
+                <hr className=' w-32 text-gray-700 border-t-2 hidden xs:block' />
             </div>
-            <div className=' text-gray-500 flex flex-col gap-4' onSubmit={handleSubmit(useHandleFormSubmit)}>
-                <h3>Create an account . It&apos;s free and only take a minute.</h3>
-                <form className='flex flex-col gap-6  '>
+            <div className=' text-gray-500 flex flex-col gap-4 w-72 xs:w-[40%]' >
+                <form className='flex flex-col gap-6 ' onSubmit={handleSubmit(useHandleFormSubmit)}>
                     {/* first and lastname */}
-                    <div className="flex justify-between gap-6">
+                    <div className="flex flex-col gap-5 xs:flex-row  w-full">
                         <CustomInput
                             type='text'
                             placeholder='firstname'
@@ -77,6 +76,8 @@ const SignUp = () => {
                             register={register}
                             name='firstname'
                             error={errors.firstname?.message}
+                            className='w-full'
+                            label='First Name'
 
                         />
                         <CustomInput
@@ -86,6 +87,8 @@ const SignUp = () => {
                             register={register}
                             name='lastname'
                             error={errors.lastname?.message}
+                            className='w-full'
+                            label='Last Name'
 
                         />
 
@@ -98,6 +101,7 @@ const SignUp = () => {
                         register={register}
                         name='username'
                         error={errors.username?.message}
+                        label='Username'
 
                     />
                     {/* email */}
@@ -108,6 +112,7 @@ const SignUp = () => {
                         register={register}
                         name='email'
                         error={errors.email?.message}
+                        label='Email'
 
                     />
                     {/* password */}
@@ -119,6 +124,7 @@ const SignUp = () => {
                         name='password'
                         error={errors.password?.message}
                         icon={<Eye />}
+                        label='Password'
 
                     />
                     {/* confirm password */}
@@ -131,6 +137,7 @@ const SignUp = () => {
                         name='confirmPassword'
                         error={errors.confirmPassword?.message}
                         icon={<Eye />}
+                        label='Confirm Password'
 
                     />
                     {/* error */}

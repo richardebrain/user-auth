@@ -39,9 +39,9 @@ const SingleItem = ({ product }: SingleItemProps) => {
     return (
 
         <div className='bg-White px-4 mb-10 py-4 flex flex-col xs:flex-row items-center gap-20 mt-20 font-kumbh justify-center w-[90%] mx-auto xs:w-full'>
-            <div className="flex items-center">
+            <div className="flex items-center relative">
                 {
-                    imageLoading && <div className='w-60 h-60 bg-gray-200 animate-pulse' />
+                    imageLoading && <div className={`w-60 h-60 bg-gray-200 animate-pulse absolute`} />
                 //     <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
                 //     <div className="animate-pulse flex space-x-4">
                 //         <div className="rounded-full bg-slate-700 h-10 w-10"></div>
@@ -67,7 +67,7 @@ const SingleItem = ({ product }: SingleItemProps) => {
                     placeholder='blur'
                     height={100}
                     priority
-                    className='w-60 h-60'
+                    className={`w-60 h-60 z-10`}
                     onLoadingComplete={() => setImageLoading(false)}
                     
                 />

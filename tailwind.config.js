@@ -25,14 +25,16 @@ module.exports = {
       desktop: "1440px",
     },
     animation: {
-      animateRight: "animateRight 1s ease-in-out",
+      'right': "right 1s ease-in-out",
     },
     keyframes: {
-      animateRight: {
+      'right': {
         "0%": { transform: "translateX(100%)" },
         "100%": { transform: "translateX(0%)" },
 
-      }
+      },
+  
+
     },
   },
   plugins: [],

@@ -4,10 +4,10 @@ import { loginUser } from '@utils/Redux/user/user.slice';
 import { onAuthStateChanged } from 'firebase/auth';
 import { getDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks';
+import { useAppDispatch } from '@helpers/redux.hooks';
 
 import Header from './header';
-import { deleteCookie, setCookie } from 'cookies-next';
+import {  setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
 
 interface LayoutProps {

@@ -97,7 +97,7 @@ export const AccountDetails = () => {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col '>
       <h1 className='h-12 py-2 border-b font-semibold px-4 text-xl'>Account Information</h1>
       <div className='w-[80%] mx-auto mt-6'>
         <form className='flex gap-5 flex-col' onSubmit={handleSubmit(handleFormUpdate)}>

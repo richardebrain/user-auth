@@ -24,10 +24,10 @@ const MyAccount = () => {
     return (
         <div className='flex justify-between gap-6 font-kumbh' >
             {/* sidebar */}
-            <div className='w-[25%] h-[30rem] shadow-md bg-white flex justify-start flex-col first:rounded-t-md ' > 
+            <div className='xs:w-[25%] h-[30rem] w-full shadow-md bg-white flex justify-start flex-col first:rounded-t-md ' > 
                 {
                     screenArray.map((screen, index) => 
-                        <div key={index} className='flex flex-col gap-2 h-12 w-full  first:rounded-t-md ' >
+                        <div key={index} className='flex flex-col gap-2 h-12 w-full  first:rounded-t-md hover:bg-gray-100' >
                             <button onClick={() => dispatch(setScreen({currentView: screen}))} className={`${screen === currentView && 'text-black bg-gray-200 font-semibold'} ${currentView === 'Account Overview' && 'rounded-t-md'} h-full w-full flex items-center px-8 justify-start`}>{screen}</button>
                         </div>
                     )
@@ -35,7 +35,7 @@ const MyAccount = () => {
                 }
             </div>
             {/* main */}
-            <div className='flex-1 h-[59rem] shadow-md bg-White rounded-md'>
+            <div className='flex-1 h-[59rem] shadow-md bg-White rounded-md hidden xs:block'>
                 <h1><Component currentView={currentView}/></h1>
 
             </div>

@@ -33,7 +33,7 @@ const Header = () => {
     const { ref: cartRef } = RefreshHook({ view: hidden, toggleView: toggleCartView })
     const { ref: accountRef } = RefreshHook({ view: accountBar, toggleView: toggleAccountBar })
     const { ref: sidebarRef } = RefreshHook({ view: sidebarView, toggleView: toggleSidebar })
-    const handleSignOut = async () => {
+ const handleSignOut = async () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
             dispatch(logout)
@@ -78,7 +78,7 @@ useEffect(() => {
                 }
                 {/* sidebar */}
                 {!sidebarView &&
-                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] animate-animateRight -right-5 z-50 w-72 `} ref={sidebarRef}  >
+                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] animate-right -right-5 z-50 w-full `} ref={sidebarRef}  >
                         <Sidebar />
                     </div>}
             </div>

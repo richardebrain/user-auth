@@ -21,7 +21,7 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error,
     const [showPassword, setShowPassword] = React.useState(false)
 
     return (
-        <div className='flex flex-col gap-1 font-kumbh'>
+        <div className='flex flex-col gap-1 font-kumbh w-full'>
             {
                 label && <label htmlFor={name} className='text-black'>{label}</label>
             }
