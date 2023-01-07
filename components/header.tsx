@@ -53,20 +53,21 @@ const Header = () => {
 
     }, [sidebarView])
     return (
-        <header className=' h-16 xs:h-32 w-full px-5 xs:px-0 justify-between xs:w-[80%] border-b-2 pb-0 flex  items-center mx-auto font-kumbh'>
-            <div className='flex xs:hidden flex-col relative' onClick={() => dispatch(toggleSidebar())} >
-                {sidebarView ?
-                    <MenuIcon className='cursor-pointer' />
-                    :
-                    <CloseIcon className='cursor-pointer' />
-                }
-                {/* sidebar */}
-                {!sidebarView &&
-                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] animate-left left-0 z-50 w-full `} ref={sidebarRef}  >
-                        <Sidebar />
-                    </div>}
-            </div>
-            <div className='flex xs:flex-1  xs:gap-20 overflow-hidden '>
+        <header className=' h-16 xs:h-32 w-full px-5 xs:px-0 justify-between xs:w-[80%] border-b-2 pb-0 flex  items-center mx-auto font-kumbh '>
+
+            <div className='flex xs:flex-1  xs:gap-20 overflow-hidden gap-4 '>
+                <div className='flex xs:hidden flex-col relative' onClick={() => dispatch(toggleSidebar())} >
+                    {sidebarView ?
+                        <MenuIcon className='cursor-pointer' />
+                        :
+                        <CloseIcon className='cursor-pointer' />
+                    }
+                    {/* sidebar */}
+                    {!sidebarView &&
+                        <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] animate-left left-0 z-50 w-full `} ref={sidebarRef}  >
+                            <Sidebar />
+                        </div>}
+                </div>
 
                 <div className="nav-item">
                     <Link href="/"><HeaderLogo /></Link>
@@ -108,10 +109,10 @@ const Header = () => {
                                     height={60}
                                     className='rounded-full border-2 hover:border-Orange'
                                     priority
-                                /> : 
+                                /> :
                                 // <h6 className='flex items-center hover:text-Orange '>
                                 //     Hi ,{user.displayName || 'My Account'}</h6>
-                                <UserIcon className={`w-8 h-18 flex items-center ${user ? 'text-Orange':''} `}/>
+                                <UserIcon className={`w-8 h-18 flex items-center ${user ? 'text-Orange' : ''} `} />
                             }
                         </div>
                     ) : (
