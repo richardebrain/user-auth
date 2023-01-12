@@ -6,7 +6,7 @@ import { getDoc } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useAppDispatch } from '@helpers/redux.hooks';
 
-import Header from './header';
+import Header from '../header';
 import {  setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
 

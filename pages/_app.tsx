@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/layout';
+import Layout from '../components/layouts/layout';
 import { wrapper } from '@utils/store';
 import { Provider } from 'react-redux';
 import Router from 'next/router';
@@ -22,8 +22,7 @@ export default function App({ Component, ...rest }: AppProps) {
   return (
    
       < Provider store={store}>
-        <Layout >
-         
+        <Layout >    
           <Component {...pageProps} />
         </Layout>
       </Provider>

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { cookiesKey } from "@helpers/methods";
-import { UserProps, UserSnapSot } from "@helpers/types";
+import { AddressForm, UserProps } from "@helpers/types";
 import { setCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
@@ -24,7 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const users = collection(db, 'users');
 
 export const createUserProfileDocument = async (userAuth: any, additionalData?: any) => {
@@ -83,7 +83,7 @@ export const updateUserProfileEmail = async (userAuth: any) => {
   const snapShot = await getDoc(userRef);
   if (snapShot.exists()) {
     const { email } = userAuth;
-  
+
     console.log(email, 'email')
     try {
       await updateDoc(userRef, {
@@ -113,4 +113,29 @@ export const googleSignIn = () => {
     const { code, message, email, credential } = error;
     console.log(code, message, email, credential)
   })
+}
+const address = collection(db, 'address');
+export const createUserAddress = async (userAuth: any, addressData?: AddressForm) => {
+  if (!userAuth) return;
+  // const addressRef = doc(address, `${userAuth.uid}`);
+  const userAddressFol = collection(address, `/${userAuth.uid}/address`);
+  const addressRef = doc(userAddressFol);
+  console.log()
+  const snapShot = await getDoc(addressRef);
+  if (!snapShot.exists()) {
+    const createdAt = new Date()
+    try {
+      await setDoc(addressRef, {
+        createdAt,
+        userId: userAuth.uid,
+        ...addressData,
+
+      })
+    }
+    catch (error) {
+      if (error instanceof Error)
+        console.log('error creating  address', error?.message);
+    }
+  }
+  return addressRef
 }

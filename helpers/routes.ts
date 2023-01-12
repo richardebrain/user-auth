@@ -4,17 +4,19 @@ export const routes = {
     CART: '/cart',
     SignUp: '/sign/sign-up',
     SignIn: '/sign/sign-in',
-    LOGOUT: '/api/firebase/logout',
     CATEGORY: {
         ELECTRONICS: '/products/electronics',
         MENSCLOTHING: '/products/men\'s clothing',
         WOMENSCLOTHING: '/products/women\'s clothing',
         JEWELERY: '/products/jewelery',
     },
-    ORDERS: '/orders',
+    ORDERS: '/account/orders',
     MYACCOUNT: '/account/my-account',
     SINGLEPRODUCT: '/products/category',
     RESETPASSWORD: '/sign/password-reset',
+    CHECKOUT: '/account/checkout',
+    ADDRESS: '/account/address/address',
+    CREATE_ADDRESS:'/account/address/create'
 
 }
 export type HeaderTabs = {

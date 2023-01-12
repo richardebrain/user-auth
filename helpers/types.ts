@@ -1,8 +1,7 @@
 import { AccountDetails } from "@components/my-account/AccountDetails";
 import AccountOverview from "@components/my-account/AccountOverview";
 import AddressBook from "@components/my-account/AdrdessBook";
-import React, { ReactComponentElement } from "react";
-import { Interface } from "readline";
+
 
 export interface IProduct {
     id: number;
@@ -19,9 +18,9 @@ export interface IProduct {
 
 }
 
-export type ProductItem = {
-    product: IProduct
-};
+// export type ProductItem = {
+//     product: IProduct
+// };
 
 
 export interface ICart {
@@ -53,12 +52,12 @@ export enum AccountSideBar {
 }
 
 export type AccountSideBarType = {
-   currentView:keyof typeof Screens;
+    currentView: keyof typeof Screens;
 }
 
 
 export const Screens = {
-    'Account Overview':  AccountOverview,
+    'Account Overview': AccountOverview,
     'Address Book': AddressBook,
     'Account Detail': AccountDetails,
 
@@ -76,13 +75,55 @@ export type UserProps = {
     firstName: string;
     lastName: string;
 }
-export interface UserSnapSot {
-    displayName: string;
-    email: string;
+export type AddressProps = {
+    id: string;
+    address: string;
+    city: string;
+    country: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    state: string;
+    additionalInfo: string;
+    userId: string;
+    isDefault: boolean;
+}
+export type AddressStateProps = {
+    address: AddressProps[];
+
+}
+export type OrderProps = {
+    id: string;
     createdAt: {
         seconds: number;
         nanoseconds: number;
     };
-    firstName: string;
-    lastName: string;
+    items: IProduct[];
+    total: number;
+    userId: string;
+
+}
+// export interface UserSnapSot {
+//     displayName: string;
+//     email: string;
+//     createdAt: {
+//         seconds: number;
+//         nanoseconds: number;
+//     };
+//     firstName: string;
+//     lastName: string;
+// }
+
+export type AddressForm = {
+    firstName: string
+    lastname: string
+    address: string
+    city: string
+    state: string
+    country: string
+    phone: string
+    additionalInfo: string
+    addressId?: string
+
+
 }

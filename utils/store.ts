@@ -4,13 +4,16 @@ import { cartSlice } from "./Redux/cart/cart.slice";
 import { modalSlice } from "./Redux/modals/modal.slice";
 import { screenSlice } from "./Redux/screens/screen.slice";
 import { userSlice } from "./Redux/user/user.slice";
+import { addressSlice } from "./Redux/address/address.slice";
+
 
 const makeStore = () => configureStore({
     reducer: {
         [cartSlice.name]: cartSlice.reducer,
         [screenSlice.name]: screenSlice.reducer,
         [userSlice.name]: userSlice.reducer,
-        [modalSlice.name]: modalSlice.reducer
+        [modalSlice.name]: modalSlice.reducer,
+        [addressSlice.name]: addressSlice.reducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

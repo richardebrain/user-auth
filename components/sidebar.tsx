@@ -29,7 +29,7 @@ const Sidebar = () => {
                      <Link href={user ? routes.MYACCOUNT : routes.SignIn} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account</Link> 
                     }
                     <Link href={routes.ORDERS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Orders</Link>
-                    <Link href={routes.PRODUCT} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Address</Link>
+                    <Link href={routes.ADDRESS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Address</Link>
 
                 </div>
                 <div className='category flex flex-col  gap-3 mt-3 border-t border-gray-200'>

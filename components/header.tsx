@@ -53,10 +53,10 @@ const Header = () => {
 
     }, [sidebarView])
     return (
-        <header className=' h-16 xs:h-32 w-full px-5 xs:px-0 justify-between xs:w-[80%] border-b-2 pb-0 flex  items-center mx-auto font-kumbh '>
+        <header className=' h-16 xs:h-32 w-full justify-between px-5 xs:px-0  xs:w-[80%] border-b-2 pb-0 flex  items-center mx-auto font-kumbh'>
 
-            <div className='flex xs:flex-1  xs:gap-20 overflow-hidden gap-4 '>
-                <div className='flex xs:hidden flex-col relative' onClick={() => dispatch(toggleSidebar())} >
+            <div className='flex xs:gap-20 overflow-hidden gap-4  items-center'>
+                <div className='flex xs:hidden flex-col relative ' onClick={() => dispatch(toggleSidebar())} >
                     {sidebarView ?
                         <MenuIcon className='cursor-pointer' />
                         :
@@ -72,12 +72,12 @@ const Header = () => {
                 <div className="nav-item">
                     <Link href="/"><HeaderLogo /></Link>
                 </div>
-                <div className="hidden nav-item xs:flex justify-between gap-8 text-GB font-kumbh font-medium">
+                <div className="hidden nav-item xs:flex justify-between gap-8 font-kumbh font-medium">
                     {
                         headerTabs.map((tab) => {
                             return <Link key={tab.name} href={`${tab.route}`}
 
-                                className='hover:text-Black'>{tab.name}</Link>
+                                className=' hover:text-Orange'>{tab.name}</Link>
                         })
                     }
 
@@ -87,7 +87,7 @@ const Header = () => {
 
 
             {/* desktop view */}
-            <div className=" nav-item flex w-20  flex-row-reverse gap-4 xs:justify-between items-center xs:flex-row">
+            <div className=" nav-item flex xs:w-48  flex-row-reverse gap-4 xs:justify-between items-center xs:flex-row ">
                 <div >
                     <CartIcon />
                     {!hidden &&
@@ -112,18 +112,23 @@ const Header = () => {
                                 /> :
                                 // <h6 className='flex items-center hover:text-Orange '>
                                 //     Hi ,{user.displayName || 'My Account'}</h6>
-                                <UserIcon className={`w-8 h-18 flex items-center ${user ? 'text-Orange' : ''} `} />
+                                <div className={`xs:flex  xs:w-40 xs:hover:bg-gray-200 xs:h-12 rounded-md items-center px-1 ${!accountBar ? 'xs:bg-gray-200 bg-none':''}`}>
+
+                                    <UserIcon className={`w-8 h-18 flex items-center ${user ? 'text-Orange' : ''} `} />
+                                    <h2 className='hidden xs:flex hover:text-Orange'>Hi, {user.lastName}</h2>
+                                </div>
                             }
                         </div>
                     ) : (
                         <div>
-                            <Link href={routes.SignIn} legacyBehavior ><a className={`text-GB  font-medium ${hoverStyles}`}>Login</a></Link>
+                            <Link href={routes.SignIn} legacyBehavior ><a className={`text-GB  font-medium ${hoverStyles}`}><UserIcon className='text-black' /></a></Link>
                         </div>
                     )
                 }
+                {/* account modal */}
                 {
                     user && user !== undefined && !accountBar && (
-                        <div className='absolute top-20 right-4 bg-white w-40 h-40 rounded-lg shadow-lg z-50' ref={accountRef}>
+                        <div className='absolute xs:top-32 top-16 xs:right-44 right-0 bg-white w-48 h-40 rounded-lg shadow-lg z-50' ref={accountRef}>
                             <div className='flex flex-col gap-4 p-4 '>
                                 <div className='flex flex-col gap-2 font-medium text-GB items-start'>
                                     <Link href={routes.MYACCOUNT} className={`${hoverStyles}`} >My Account</Link>

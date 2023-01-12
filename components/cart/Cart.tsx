@@ -2,6 +2,8 @@ import { IProduct } from '@helpers/types'
 import { useAppSelector } from '@helpers/redux.hooks'
 import React from 'react'
 import CartItem from './CartItem'
+import { routes } from '@helpers/routes'
+import Link from 'next/link'
 
 const Cart = () => {
     const cart = useAppSelector(state => state?.cart.cartItems)
@@ -22,8 +24,8 @@ const Cart = () => {
 
             </div>
             {/* cart footer */}
-            <div className='flex flex-col h-20 justify-center items-center'>
-                <button className='bg-Black text-white w-60 h-10 rounded-md'>Checkout</button>
+            <div className='flex h-20 justify-center items-center'>
+                <Link className='bg-Black text-white w-60 h-10 rounded-md flex items-center flex-col justify-center' href={routes.CHECKOUT} >Checkout</Link>
             </div>
         </div>
     )

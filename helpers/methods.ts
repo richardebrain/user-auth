@@ -1,4 +1,6 @@
 import { useRouter } from "next/router";
+// import { getStatesOfCountry } from "country-state-city/lib/state";
+
 
 var jwt = require('jsonwebtoken');
 export function shortenTitle(title: string, maxLength: number) {
@@ -20,7 +22,7 @@ export const decodeToken = (token: string) => {
     return user;
 }
 export const Router = () => {
-   const router = useRouter();
+    const router = useRouter();
     return router;
 }
 
@@ -44,3 +46,18 @@ export const Router = () => {
 
 // }
 
+
+
+export const formatValue = (value: string) => {
+    const splitValue = value?.split(' ') ?? [];
+    return {
+        code: splitValue[0] ,
+    }
+}
+
+export const mappedState = (value: any) => {
+    return value.map((val: any) => ({
+        name: val.name,
+        code: val.code
+    }))
+}

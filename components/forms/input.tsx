@@ -26,7 +26,7 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error,
                 label && <label htmlFor={name} className='text-black'>{label}</label>
             }
             <div className='relative flex flex-col'>
-                <span className={`absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer ${showPassword ? 'text-black ' : 'text-gray-500'}`} onClick={() => setShowPassword(state => !state)}>
+                <span className={`absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer ${showPassword ? 'text-black ' : 'text-gray-500'} `} onClick={() => setShowPassword(state => !state)}>
                     {icon}
 
                 </span>
@@ -35,7 +35,7 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error,
                     type={showPassword ? 'text' : type}
                     {...otherProps}
                     {...register(name)}
-                    className={`outline-none bg-white pt-3 focus:border-black text-black rounded-md px-2 placeholder:text-black h-12 border border-gray-400 ${className}}`}
+                    className={`outline-none bg-white pt-3 focus:border-black text-black rounded-md px-2 placeholder:text-black h-12 border border-gray-400 ${className}} ${error ? ' focus:border-red-500 border-red-500' : ''}`}
                     {...touched && error && { className: 'border-red-500' }}
                 />
 
