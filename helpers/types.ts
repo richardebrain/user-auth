@@ -18,9 +18,9 @@ export interface IProduct {
 
 }
 
-// export type ProductItem = {
-//     product: IProduct
-// };
+export type ProductItem = {
+    product: IProduct
+};
 
 
 export interface ICart {
