@@ -19,6 +19,7 @@ import MenuIcon from '../public/images/menu-icon.svg'
 import Sidebar from './sidebar';
 import CloseIcon from '../public/images/icon-close.svg'
 import UserIcon from '../public/images/user.svg'
+import { toast } from 'react-toastify';
 
 const Header = () => {
     const [isLoading, setIsLoading] = useState(false)
@@ -26,16 +27,17 @@ const Header = () => {
     const dispatch = useAppDispatch()
 
     const { user: { user }, cart: { hidden }, modal: { accountBar, sidebarView } } = useAppSelector(state => state)
-    useEffect(() => {
-        if (isLoading) {
-            window.location.reload()
-        }
-    }, [isLoading])
+    // useEffect(() => {
+    //     if (isLoading) {
+    //         window.location.reload()
+    //     }
+    // }, [isLoading])
     const { ref: sidebarRef } = RefreshHook({ view: sidebarView, toggleView: toggleSidebar })
     const handleSignOut = async () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
-            dispatch(logout)
+            dispatch(logout())
+            toast.success('Logout successful')
             setIsLoading(true)
 
         })

@@ -5,8 +5,8 @@ import ProductList from '@components/products/product-list';
 import { IProduct } from '@helpers/types';
 import { ParsedUrlQuery } from 'querystring';
 
-const ProductPage = ({ data}: { data: IProduct[] }) => {
-  
+const ProductPage = ({ data }: { data: IProduct[] }) => {
+
     if (!data) {
         return <div>Loading...</div>
     }
@@ -28,18 +28,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
     });
     return {
         paths,
-        fallback: 'blocking',
+        fallback: true,
     };
 }
 export const getStaticProps: GetStaticProps = async (ctx: { params?: ParsedUrlQuery; preview?: boolean; previewData?: PreviewData }) => {
     const res = await axios.get(` https://fakestoreapi.com/products/category/${ctx.params?.id}`);
     const data = res.data;
-    
+
 
     return {
         props: {
             data,
-          
+
         },
 
 

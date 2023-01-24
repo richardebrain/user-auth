@@ -47,7 +47,3 @@ const userSelector = createSelector(selectUser, (user) => user)
 
 export default userSlice.reducer
 
-// Path: utils\Redux\user\user.thunk.ts
-// export const updateUserInfo  = (data) =>{
-
-// }

@@ -13,10 +13,11 @@ type InputProps = {
     register?: any
     className?: string
     icon?: ReactComponentElement<any>
+    disabled?: boolean
 
 }
 
-const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error, touched, icon, className, ...otherProps }) => {
+const CustomInput: React.FC<InputProps> = ({ type, name, label, disabled, register, error, touched, icon, className, ...otherProps }) => {
 
     const [showPassword, setShowPassword] = React.useState(false)
 
@@ -37,6 +38,7 @@ const CustomInput: React.FC<InputProps> = ({ type, name, label, register, error,
                     {...register(name)}
                     className={`outline-none bg-white pt-3 focus:border-black text-black rounded-md px-2 placeholder:text-black h-12 border border-gray-400 ${className}} ${error ? ' focus:border-red-500 border-red-500' : ''}`}
                     {...touched && error && { className: 'border-red-500' }}
+                    disabled={disabled}
                 />
 
             </div>

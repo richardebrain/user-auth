@@ -19,13 +19,6 @@ const AccountLayout = ({ children }: accountLayoutProps) => {
         const unSubscribe = async () => {
             if (!auth?.currentUser?.uid) return
             const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
-            // if (addressSnapshot.size == 1) {
-            //     const docRef = doc(db, 'address', `${auth.currentUser.uid}/address`, addressSnapshot.docs[0].id)
-            //     await updateDoc(docRef, {
-            //         isDefault: true
-            //     })
-
-            // }
             addressSnapshot.forEach((doc) => {
                 dispatch(setAddress({
                     ...doc.data() as AddressProps,

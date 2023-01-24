@@ -5,6 +5,7 @@ import { setCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -204,8 +205,9 @@ export const updateUserAddress = async (userAuth: User, addressData?: AddressFor
       })
     }
     catch (error) {
-      if (error instanceof Error)
-        console.log('error updating  address', error?.message);
+      if (error instanceof Error) 
+      console.log('error updating  address', error?.message);
+      
     }
   }
   return addressRef

@@ -8,7 +8,8 @@ import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { NextPage } from 'next';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -29,13 +30,21 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
 
 
   }, [])
-  const getLayout = Component.getLayout ?? ((page) => <Provider store={store}> <Layout> {page} </Layout> </Provider>)
+  const getLayout = Component.getLayout ?? ((page) =>
+    <Provider store={store}>
+      <Layout> 
+        {page}
+        <ToastContainer />
+      </Layout>
+    </Provider>
+  )
 
 
   return (
 
     < Provider store={store}>
       {getLayout(<Component {...pageProps} />)}
+      <ToastContainer />
     </Provider>
 
 

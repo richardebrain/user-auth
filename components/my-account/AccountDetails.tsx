@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { Router } from '@helpers/methods'
 import { routes } from '@helpers/routes'
 import { updateUserProfile } from '@utils/Redux/user/user.slice'
+import { toast } from 'react-toastify'
 
 type FormValues = {
   firstName: string
@@ -83,9 +84,11 @@ export const AccountDetails = () => {
         })
         await updateUserProfileDisplayName(auth.currentUser)
         dispatch(updateUserProfile({ displayName: userName }))
+        toast.success('Display Name updated successfully')
         //  router.push(`${routes.MYACCOUNT}my-account`)
       } catch (error) {
         console.log(error)
+        toast.error('Something went wrong')
       }
     }
     // check if its user is updating email
@@ -94,8 +97,10 @@ export const AccountDetails = () => {
         await updateEmail(auth?.currentUser as User, email)
         await updateUserProfileEmail(auth.currentUser)
         dispatch(updateUserProfile({ email }))
+        toast.success('Email updated successfully')
       } catch (error) {
         console.log(error)
+        toast.error('Something went wrong')
       }
     }
     // check if its user is updating password
@@ -104,9 +109,11 @@ export const AccountDetails = () => {
       try {
         await updateName(auth.currentUser, data)
         dispatch(updateUserProfile({ firstName, lastName }))
+        toast.success('Name updated successfully')
       }
       catch (error) {
         console.log(error)
+        toast.error('Something went wrong')
       }
 
 
@@ -156,6 +163,7 @@ export const AccountDetails = () => {
               placeholder={'Enter your email address'}
               required
               label={'Email'}
+              disabled
               register={register}
               name={'email'}
             />

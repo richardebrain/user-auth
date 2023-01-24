@@ -1,5 +1,6 @@
 import { AddressProps, AddressStateProps } from "@helpers/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import { addAddressbyId, editAddressById, removeAddressById, setDefault } from "./address-helpers";
 
 const initialState: AddressStateProps = {
@@ -14,8 +15,7 @@ export const addressSlice = createSlice({
             state.address = addAddressbyId(state.address, action.payload)
         },
         removeAddress: (state, action: PayloadAction<AddressProps>) => {
-            state.address = state.address.filter((item) => item.id !== action.payload.id),
-            console.log('deleted')
+            state.address = state.address.filter((item) => item.id !== action.payload.id)
         },
         editAddress: (state, action: PayloadAction<AddressProps>) => {
             state.address = editAddressById(state.address, action.payload)
@@ -27,5 +27,5 @@ export const addressSlice = createSlice({
     }
 })
 
-export const { setAddress, removeAddress, editAddress,setAsDefault } = addressSlice.actions
+export const { setAddress, removeAddress, editAddress, setAsDefault } = addressSlice.actions
 export default addressSlice.reducer

@@ -1,6 +1,7 @@
 import AddressCard from '@components/address/AddressCard'
 import { formatstateOrCountry } from '@helpers/methods'
 import { useAppSelector } from '@helpers/redux.hooks'
+import { routes } from '@helpers/routes'
 import { AddressProps } from '@helpers/types'
 import EditIcon from '@public/images/edit.svg'
 import Link from 'next/link'
@@ -35,7 +36,7 @@ const AccountOverview = ({ defaultAddress }: Props) => {
         <div className='flex-1 flex border h-56 mt-4 flex-col rounded-md' >
           <div className='border-b h-12 px-4  flex items-center justify-between '>
             <h1 className=' '>ADDRESS BOOK</h1>
-            <Link href={'/'} className='hover:bg-orange-200 rounded-full text-orange-400 h-10 w-10 flex items-center justify-center'>
+            <Link href={`${routes.MYACCOUNT}address/edit/${defaultAddress?.id!}`} className='hover:bg-orange-200 rounded-full text-orange-400 h-10 w-10 flex items-center justify-center'>
               <EditIcon className='w-6 h-6' />
             </Link>
           </div>
@@ -47,7 +48,7 @@ const AccountOverview = ({ defaultAddress }: Props) => {
               <span className='text-sm'>{defaultAddress?.address}</span>
               <span className='text-sm'>{defaultAddress?.city}, {formatstateOrCountry(defaultAddress?.state!).name}</span>
               <span className='text-sm mb-1'>{formatstateOrCountry(defaultAddress?.country!).name}</span>
-              <span className='text-sm'>{defaultAddress?.phone}</span>
+              <span className='text-sm'>{defaultAddress?.phone}{defaultAddress?.phone && ` / ${defaultAddress?.phone}`}</span>
             </div>
           </div>
 

@@ -12,6 +12,7 @@ import { auth, createUserAddress, updateUserAddress } from '@utils/firebase'
 import { useRouter } from 'next/router'
 import Spinner from '@components/Spinner'
 import { useAppSelector } from '@helpers/redux.hooks'
+import { toast } from 'react-toastify'
 
 
 type CountryProps = {
@@ -28,7 +29,7 @@ const AddressForm = () => {
         firstName: Yup.string().required('First Name is required'),
         lastName: Yup.string().required('Last Name is required'),
         address: Yup.string().required('Address is required'),
-        city: Yup.string().required('City is required'),
+        city: Yup.string(),
         state: Yup.string().required('State is required'),
         country: Yup.string().required('Country is required'),
         phone: Yup.string().required('Phone is required'),
@@ -81,10 +82,12 @@ const AddressForm = () => {
     const handleFormSubmit = async (data: AddressForm) => {
         if (getAddressToEdit) {
             updateUserAddress(auth?.currentUser!, data, getAddressToEdit.id)
+            toast.success('Address Updated Successfully')
             router.back()
         } else {
 
             await createUserAddress(auth?.currentUser, data).then((res) => {
+                toast.success('Address Added Successfully')
                 reset()
                 router.back()
 
@@ -190,7 +193,7 @@ const AddressForm = () => {
                     <CustomDropdown
                         label='City'
                         name='city'
-                        required
+                        required={false}
                         register={register}
                         error={errors.city?.message}
                         options={mappedCities}

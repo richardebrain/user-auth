@@ -9,6 +9,7 @@ import Link from 'next/link'
 import React, { useEffect } from 'react'
 import EditIcon from '@public/images/edit.svg'
 import DeleteIcon from '@public/images/trash.svg'
+import { toast } from 'react-toastify'
 
 const AddressCard = ({ addressCard }: { addressCard: AddressProps }) => {
 
@@ -17,15 +18,15 @@ const AddressCard = ({ addressCard }: { addressCard: AddressProps }) => {
     const dispatch = useAppDispatch()
 
     const deleteAddress = async (item: AddressProps) => {
-        confirm('Are you sure you want to delete this address?')
-
         dispatch(removeAddress(item))
         await deleteUserAddressById(auth.currentUser as User, item)
+        toast.success('Address deleted')
 
     }
     const handleDefault = async (item: AddressProps) => {
         dispatch(setAsDefault(item))
         await setAsDefaultAddress(auth.currentUser as User, item)
+        toast.success('Address set as default')
 
 
 
@@ -70,7 +71,7 @@ const AddressCard = ({ addressCard }: { addressCard: AddressProps }) => {
                             <DeleteIcon className='w-6 h-6' />
                         </button>
                         <Link
-                            href={`${routes.MYACCOUNT}address/${addressCard.id}`} className='hover:bg-orange-200 rounded-full text-orange-400 h-10 w-10 flex items-center justify-center'
+                            href={`${routes.MYACCOUNT}address/edit/${addressCard.id}`} className='hover:bg-orange-200 rounded-full text-orange-400 h-10 w-10 flex items-center justify-center'
                         >
                             <EditIcon className='w-6 h-6' />
                         </Link>

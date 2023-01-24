@@ -11,29 +11,28 @@ import { useRouter } from 'next/router'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, googleSignIn } from '@utils/firebase'
 import Eyes from '../../public/images/eyes.svg'
+import { toast } from 'react-toastify'
 
 interface IForm {
   email: string,
   password: string
 }
 const SignIn = () => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [isGoogleLoading, setIsGoogleLoading] = useState(false)
+const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
   const userSchema = yup.object().shape({
     email: yup.string().email('Email is invalid').required('Email is required'),
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   })
-  const { register, handleSubmit, formState: { errors } } = useForm<IForm>({
+  const { register, handleSubmit, formState: { errors,isSubmitting} } = useForm<IForm>({
     resolver: yupResolver(userSchema),
 
   });
   const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(res => {
-
-        setIsLoading(true)
+        toast.success('Login successful')
         router.push('/')
       })
     }
@@ -41,11 +40,16 @@ const SignIn = () => {
       if (error instanceof Error) {
         if (error.message === 'Firebase: Error (auth/user-not-found).') {
           setError('User not found')
+          toast.error('User not found')
         } else if (error.message === 'Firebase: Error (auth/wrong-password).') {
           setError('wrong password')
+          toast.error('wrong password')
 
+        }else{
+
+          console.log(error.message)
+          toast.error(error.message)
         }
-        console.log(error.message)
       }
 
     }
@@ -54,6 +58,7 @@ const SignIn = () => {
   const handleGoogleSignIn = async () => {
     try {
       googleSignIn().then(() => {
+        toast.success('Login successful')
         setIsGoogleLoading(true)
         router.push('/')
       })
@@ -106,7 +111,7 @@ const SignIn = () => {
               {error && <span className='text `-red-500 mb-0 text-center'>{error}</span>}
             </div>
           </div>
-          <Button type='submit' >{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In'}</Button>
+          <Button type='submit' >{isSubmitting ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In'}</Button>
 
         </form>
         {/* other properties */}
