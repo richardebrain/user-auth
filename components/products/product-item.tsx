@@ -14,11 +14,11 @@ const ProductItem = ({ product }: ProductItemProps) => {
     const [imageLoading, setImageLoading] = useState<boolean>(true)
 
     return (
-        <Link className='shadow-lg bg-White w-64 xs:w-72 h-72 xs:h-80 mb-10 py-2 flex flex-col  cursor-pointer gap-6 items-center justify-between ' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
+        <Link className='shadow-lg bg-White w-[185px] xs:w-[185px] h-48 xs:h-48 mb-10 py-2 flex flex-col  cursor-pointer gap-6 items-center justify-between rounded-md' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
 
-            <div className='flex mt-8 items-center justify-center relative'>
+            <div className='flex mt-4 items-center justify-center relative'>
                 {
-                    imageLoading && <div className={`w-32 h-40 bg-gray-100 animate-pulse absolute`} />
+                    imageLoading && <div className={`w-20 h-20 bg-gray-100 animate-pulse absolute`} />
 
                 }
                 <Image
@@ -30,14 +30,14 @@ const ProductItem = ({ product }: ProductItemProps) => {
                     width={80}
                     height={80}
                     priority
-                    className={`w-32 h-40 z-10 `}
+                    className={`w-20 h-20 z-10  hover:scale-110 transition-all duration-500 ease-in-out `}
                     onLoad={() => setImageLoading(false)}
                 />
 
             </div>
             <div className='flex flex-col gap-2 items-start '>
 
-                <h1 className='text-Black font-medium text-xl'>{shortenTitle(product.title, 18)}</h1>
+                <h1 className='text-Black font-medium text-xl'>{shortenTitle(product.title, 12)}</h1>
                 <span className='text-Black font-medium text-md'>${product.price}</span>
             </div>
 

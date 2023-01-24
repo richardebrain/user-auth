@@ -19,27 +19,25 @@ module.exports = {
       fontFamily: {
         kumbh: ["Kumbh Sans"],
       },
+      animation: {
+        right: "right 1s ease-in-out",
+        left: "left 1s ease-in-out",
+      },
+      keyframes: {
+        right: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+        left: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+
+      },
     },
     screens: {
       xs: "425px",
       desktop: "1440px",
-    },
-    animation: {
-      'right': "right 1s ease-in-out",
-      'left': "left 1s ease-in-out",
-    },
-    keyframes: {
-      'right': {
-        "0%": { transform: "translateX(100%)" },
-        "100%": { transform: "translateX(0%)" },
-
-      },
-      'left':{
-        "0%": { transform: "translateX(-100%)" },
-        "100%": { transform: "translateX(0%)" },
-      }
-  
-
     },
   },
   plugins: [],

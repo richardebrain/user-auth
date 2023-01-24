@@ -87,6 +87,7 @@ export type AddressProps = {
     additionalInfo: string;
     userId: string;
     isDefault: boolean;
+    additionalPhoneNumber: string;
 }
 export type AddressStateProps = {
     address: AddressProps[];
@@ -124,6 +125,8 @@ export type AddressForm = {
     phone: string
     additionalInfo: string
     addressId?: string
+    isDefault?: boolean
+    additionalPhoneNumber: string
 
 
 }

@@ -23,6 +23,12 @@ export const userSlice = createSlice({
         },
         logout: (state) => {
             state.user = null as any
+        },
+        updateUserProfile: (state, action: PayloadAction<{}>) => {
+            state.user = {
+                ...state.user,
+                ...action.payload
+            }
         }
     },
     extraReducers:{
@@ -34,10 +40,14 @@ export const userSlice = createSlice({
         }
     }
 })
-export const { loginUser, logout } = userSlice.actions
+export const { loginUser, logout,updateUserProfile } = userSlice.actions
 
 export const selectUser = (state: AppState) => state.user.user
 const userSelector = createSelector(selectUser, (user) => user)
 
 export default userSlice.reducer
 
+// Path: utils\Redux\user\user.thunk.ts
+// export const updateUserInfo  = (data) =>{
+
+// }

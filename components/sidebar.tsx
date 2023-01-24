@@ -26,7 +26,7 @@ const Sidebar = () => {
             <div className='flex flex-col  gap-3 '>
                 <div className='flex flex-col gap-1 justify-end'>
                     {
-                     <Link href={user ? routes.MYACCOUNT : routes.SignIn} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account</Link> 
+                     <Link href={user ? `${routes.MYACCOUNT}my-account` : routes.SignIn} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account</Link> 
                     }
                     <Link href={routes.ORDERS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Orders</Link>
                     <Link href={routes.ADDRESS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Address</Link>

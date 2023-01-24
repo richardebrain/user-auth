@@ -11,12 +11,12 @@ export const routes = {
         JEWELERY: '/products/jewelery',
     },
     ORDERS: '/account/orders',
-    MYACCOUNT: '/account/my-account',
+    MYACCOUNT: '/account/',
     SINGLEPRODUCT: '/products/category',
     RESETPASSWORD: '/sign/password-reset',
     CHECKOUT: '/account/checkout',
-    ADDRESS: '/account/address/address',
-    CREATE_ADDRESS:'/account/address/create'
+    ADDRESS: '/account/address/',
+    CREATE_ADDRESS: '/account/address/create'
 
 }
 export type HeaderTabs = {
@@ -45,4 +45,22 @@ export const headerTabs: HeaderTabs[] = [
         id: 'electronics'
     }
 
+]
+
+
+export const accountBarNav = [
+    {
+        name: 'Account Overview',
+        path: `${routes.MYACCOUNT}my-account`
+
+    },
+    {
+        name:'Address Book',
+        path:`${routes.MYACCOUNT}address`
+
+    },
+    {
+        name:'Account Details',
+        path:`${routes.MYACCOUNT}profile`
+    }
 ]

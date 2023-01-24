@@ -8,9 +8,10 @@ import CustomDropdown from '@components/forms/dropdown'
 import { Country, State, City } from 'country-state-city'
 import Button from '@components/Button'
 import { formatValue } from '@helpers/methods'
-import { auth, createUserAddress } from '@utils/firebase'
+import { auth, createUserAddress, updateUserAddress } from '@utils/firebase'
 import { useRouter } from 'next/router'
 import Spinner from '@components/Spinner'
+import { useAppSelector } from '@helpers/redux.hooks'
 
 
 type CountryProps = {
@@ -19,7 +20,10 @@ type CountryProps = {
 }
 const AddressForm = () => {
     const router = useRouter()
-    const [isLoading, setIsLoading] = useState(false)
+    const { address } = useAppSelector(state => state.address)
+    const slug = router.query.slug
+    const getAddressToEdit = address.find(item => item.id === slug)
+
     const addressSchema = Yup.object().shape({
         firstName: Yup.string().required('First Name is required'),
         lastName: Yup.string().required('Last Name is required'),
@@ -28,18 +32,21 @@ const AddressForm = () => {
         state: Yup.string().required('State is required'),
         country: Yup.string().required('Country is required'),
         phone: Yup.string().required('Phone is required'),
+        additionalPhoneNumber: Yup.string(),
 
     })
-
-
-    const { register, handleSubmit, reset, getValues, watch, formState: { errors } } = useForm<AddressForm>({
+    const { register, handleSubmit, reset, getValues, watch, formState: { errors, isSubmitting } } = useForm<AddressForm>({
         resolver: yupResolver(addressSchema)
     })
-
+    useEffect(() => {
+        if (getAddressToEdit) {
+            reset(getAddressToEdit)
+        }
+    }, [getAddressToEdit, reset])
 
 
     useEffect(() => {
-        // cause a component re-render when country / state  gets updated
+        // cause component to re-render when country / state  gets updated
         watch(['country', 'state'])
 
     }, [watch])
@@ -54,10 +61,8 @@ const AddressForm = () => {
     )
 
     const countryValue = formatValue(getValues('country'))
-
     const stateValue = formatValue(getValues('state'))
     const cityValue = getValues('city')
-
     const mappedStates = State.getStatesOfCountry(countryValue.code).map(
         (state) => {
             return {
@@ -74,18 +79,22 @@ const AddressForm = () => {
         }
     )
     const handleFormSubmit = async (data: AddressForm) => {
-        await createUserAddress(auth.currentUser, data).then((res) => {
-            console.log(res, 'address created')
-            reset()
-            setIsLoading(true)
-            router.push('/account/address/address')
+        if (getAddressToEdit) {
+            updateUserAddress(auth?.currentUser!, data, getAddressToEdit.id)
+            router.back()
+        } else {
 
-        })
+            await createUserAddress(auth?.currentUser, data).then((res) => {
+                reset()
+                router.back()
+
+            })
+        }
 
     }
     return (
-        <div className=' flex items-center flex-col mx-auto w-[90%]'>
-            <form className='flex flex-col w-full gap-6' onSubmit={handleSubmit(handleFormSubmit)} >
+        <div className=' flex items-center flex-col mx-auto w-[90%] xs:w-full xs:px-4'>
+            <form className='flex flex-col w-full gap-5 xs:grid grid-cols-2 xs:flex-wrap ' onSubmit={handleSubmit(handleFormSubmit)} >
                 <div className='flex flex-col w-full'>
                     <CustomInput
                         label='First Name'
@@ -98,7 +107,7 @@ const AddressForm = () => {
 
                     />
                 </div>
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full '>
                     <CustomInput
                         label='Last Name'
                         name='lastName'
@@ -122,6 +131,17 @@ const AddressForm = () => {
                 </div>
                 <div className='flex flex-col w-full'>
                     <CustomInput
+                        label='Additional Phone Number'
+                        name='additionalPhoneNumber'
+                        type='tel'
+                        placeholder='Enter your Additional Phone Number'
+                        required={false}
+                        register={register}
+                        error={errors.phone?.message}
+                    />
+                </div>
+                <div className='flex flex-col w-full xs:col-span-2'>
+                    <CustomInput
                         label='Delivery Address'
                         name='address'
                         type='text'
@@ -131,7 +151,7 @@ const AddressForm = () => {
                         error={errors.address?.message}
                     />
                 </div>
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full xs:col-span-2'>
                     <CustomInput
                         label='Additional Information'
                         name='AdditionalInformation'
@@ -178,7 +198,8 @@ const AddressForm = () => {
 
                     />
                 </div>
-                <Button type='submit'>  {isLoading ? <Spinner width="20" fill="white" className="animate-spin" /> : 'Sign Up'}</Button>
+                <br />
+                <Button type='submit'>  {isSubmitting ? <Spinner width="20" fill="white" className="animate-spin " /> : 'Save'}</Button>
             </form>
 
         </div>

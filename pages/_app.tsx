@@ -4,10 +4,21 @@ import Layout from '../components/layouts/layout';
 import { wrapper } from '@utils/store';
 import { Provider } from 'react-redux';
 import Router from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-export default function App({ Component, ...rest }: AppProps) {
+import { NextPage } from 'next';
+
+
+
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+export default function App({ Component, ...rest }: AppPropsWithLayout) {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { pageProps } = props
   useEffect(() => {
@@ -17,16 +28,16 @@ export default function App({ Component, ...rest }: AppProps) {
     Router.events.on('routeChangeError', () => NProgress.done())
 
 
-  }, [Router])
+  }, [])
+  const getLayout = Component.getLayout ?? ((page) => <Provider store={store}> <Layout> {page} </Layout> </Provider>)
+
 
   return (
-   
-      < Provider store={store}>
-        <Layout >    
-          <Component {...pageProps} />
-        </Layout>
-      </Provider>
-  
+
+    < Provider store={store}>
+      {getLayout(<Component {...pageProps} />)}
+    </Provider>
+
 
   )
 

@@ -55,7 +55,7 @@ const ForgetModal = () => {
                     error={errors.forgetEmail?.message}
                     className='w-full'
                 />
-                <Button type='submit'>{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Sign In with Google'}</Button>
+                <Button type='submit'>{isLoading ? <Spinner width="20" fill="white" className="animate-spin text-center" /> : 'Reset Password'}</Button>
             </form>
         </div>
     )

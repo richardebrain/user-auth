@@ -27,14 +27,14 @@ const SignIn = () => {
   })
   const { register, handleSubmit, formState: { errors } } = useForm<IForm>({
     resolver: yupResolver(userSchema),
-     
+
   });
   const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(res => {
-      
+
         setIsLoading(true)
-         router.push('/')
+        router.push('/')
       })
     }
     catch (error) {
@@ -53,12 +53,10 @@ const SignIn = () => {
   }
   const handleGoogleSignIn = async () => {
     try {
-      const user = googleSignIn()
-      if (user!) {
+      googleSignIn().then(() => {
         setIsGoogleLoading(true)
         router.push('/')
-
-      }
+      })
 
     } catch {
 

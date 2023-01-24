@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { AddressProps } from "./types";
 // import { getStatesOfCountry } from "country-state-city/lib/state";
 
 
@@ -51,9 +52,18 @@ export const Router = () => {
 export const formatValue = (value: string) => {
     const splitValue = value?.split(' ') ?? [];
     return {
-        code: splitValue[0] ,
+        code: splitValue[0],
     }
 }
+
+export const formatstateOrCountry = (value: string) => {
+    const splitValue = value?.split(' ') ?? [];
+    const greaterThan3 = splitValue.length >= 3;
+    return {
+        name: greaterThan3 ? splitValue.slice(1).join(' ') : splitValue[1],
+    }
+}
+
 
 export const mappedState = (value: any) => {
     return value.map((val: any) => ({
@@ -61,3 +71,14 @@ export const mappedState = (value: any) => {
         code: val.code
     }))
 }
+
+
+export const getAddressCount = (address: AddressProps[]) => (
+    address.reduce((acc, curr) => {
+        if (curr) {
+            acc++
+        }
+        return acc
+    }, 0)
+
+)
