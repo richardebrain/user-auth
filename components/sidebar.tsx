@@ -25,11 +25,13 @@ const Sidebar = () => {
             {/* category */}
             <div className='flex flex-col  gap-3 '>
                 <div className='flex flex-col gap-1 justify-end'>
-                    {
-                     <Link href={user ? `${routes.MYACCOUNT}my-account` : routes.SignIn} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account</Link> 
-                    }
-                    <Link href={routes.ORDERS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Orders</Link>
+                    <Link href={routes.HOME} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Home</Link>
+                    <Link href={user ? `${routes.MYACCOUNT}my-account` : routes.SignIn} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account Overview</Link>
+                    <Link href={routes.ORDERS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Order</Link>
                     <Link href={routes.ADDRESS} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Address</Link>
+                    <Link href={routes.WISHLIST} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>WishList</Link>
+                    <Link href={`${routes.MYACCOUNT}profile`} className='hover:text-white hover:bg-orange-300 h-10 flex items-center px-4'>Account Setting</Link>
+
 
                 </div>
                 <div className='category flex flex-col  gap-3 mt-3 border-t border-gray-200'>

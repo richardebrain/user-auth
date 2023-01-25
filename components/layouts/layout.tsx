@@ -1,14 +1,15 @@
-import { UserProps } from '@helpers/types';
-import { auth, createUserProfileDocument } from '@utils/firebase';
+import { AddressProps, UserProps } from '@helpers/types';
+import { auth, createUserProfileDocument, db } from '@utils/firebase';
 import { loginUser } from '@utils/Redux/user/user.slice';
 import { onAuthStateChanged } from 'firebase/auth';
-import { getDoc } from 'firebase/firestore';
+import { collection, getDoc, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
-import { useAppDispatch } from '@helpers/redux.hooks';
+import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks';
 
 import Header from '../header';
-import {  setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
+import { setAddress } from '@utils/Redux/address/address.slice';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -16,7 +17,11 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     const dispatch = useAppDispatch()
+    const { user: { user }, address:{address} } = useAppSelector((state) => state)
+    console.log(address)
     useEffect(() => {
+        // listen to user changes
+        if (user) return
         const unSubscribeFromAuth = onAuthStateChanged(auth, async (userAuth) => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth)
@@ -31,14 +36,32 @@ const Layout = ({ children }: LayoutProps) => {
                         id: snapShot.id,
                     })
                 )
-               
+
             }
         })
         return () => {
             unSubscribeFromAuth()
         }
 
-    }, [dispatch])
+    }, [dispatch, user])
+
+    useEffect(() => {
+        // listen to address changes
+        if (address.length > 0 ) return;
+        const unSubscribe = async () => {
+            if (!auth?.currentUser) return
+            const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
+            addressSnapshot.forEach((doc) => {
+                dispatch(setAddress({
+                    ...doc.data() as AddressProps,
+                    id: doc.id,
+                }))
+            })
+        }
+        return () => {
+            unSubscribe()
+        }
+    }, [address.length, dispatch])
 
 
     return (

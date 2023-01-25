@@ -16,7 +16,8 @@ export const routes = {
     RESETPASSWORD: '/sign/password-reset',
     CHECKOUT: '/account/checkout',
     ADDRESS: '/account/address/',
-    CREATE_ADDRESS: '/account/address/create'
+    CREATE_ADDRESS: '/account/address/create',
+    WISHLIST: '/account/wishlist'
 
 }
 export type HeaderTabs = {
@@ -55,12 +56,20 @@ export const accountBarNav = [
 
     },
     {
-        name:'Address Book',
-        path:`${routes.MYACCOUNT}address`
+        name: 'Address Book',
+        path: `${routes.MYACCOUNT}address`
 
     },
     {
-        name:'Account Details',
-        path:`${routes.MYACCOUNT}profile`
-    }
+        name: 'My Orders',
+        path: `${routes.MYACCOUNT}orders`
+    },
+    {
+        name: 'My Wishlist',
+        path: `${routes.MYACCOUNT}wishlist`
+    },
+    {
+        name: 'Account Details',
+        path: `${routes.MYACCOUNT}profile`
+    },
 ]

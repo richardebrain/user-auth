@@ -16,7 +16,6 @@ type ForgetModalProps = {
 }
 
 const ForgetModal = () => {
-    const [isLoading, setIsLoading] = React.useState(false)
     const forgetSchema = yup.object().shape({
         forgetEmail: yup.string().email('Email is invalid').required('Email is required'),
     })
@@ -27,7 +26,6 @@ const ForgetModal = () => {
     const router = useRouter()
 
     const handleForgetPassword = async ({ forgetEmail }: ForgetModalProps) => {
-        console.log(forgetEmail)
         try {
 
             await sendPasswordResetEmail(auth, forgetEmail).then(res => {
