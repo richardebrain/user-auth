@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { AddressProps } from "./types";
+import { AddressProps, IProduct } from "./types";
 // import { getStatesOfCountry } from "country-state-city/lib/state";
 
 
@@ -82,3 +82,14 @@ export const getAddressCount = (address: AddressProps[]) => (
     }, 0)
 
 )
+
+export const productByCategory = (products: IProduct[]) => {
+    const categories = products.map((product: IProduct) => product.category)
+    const uniqueCategories = [...new Set(categories)]
+    return uniqueCategories.map((category: string) => {
+        return {
+            name: category,
+            products: products.filter((product: IProduct) => product.category === category)
+        }
+    })
+}

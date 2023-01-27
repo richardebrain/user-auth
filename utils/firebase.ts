@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { cookiesKey } from "@helpers/methods";
-import { AddressForm, AddressProps, UserProps } from "@helpers/types";
+import { AddressForm, AddressProps, IProduct, ProductItem, UserProps } from "@helpers/types";
 import { setCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
@@ -205,9 +205,9 @@ export const updateUserAddress = async (userAuth: User, addressData?: AddressFor
       })
     }
     catch (error) {
-      if (error instanceof Error) 
-      console.log('error updating  address', error?.message);
-      
+      if (error instanceof Error)
+        console.log('error updating  address', error?.message);
+
     }
   }
   return addressRef
@@ -282,4 +282,82 @@ export const setAsDefaultAddress = async (userAuth: User, addressData?: AddressP
 
 
 
+}
+
+export const addItemToCart = async (user: User, product : IProduct) => {
+  if (!user) return;
+  const cartRef =  collection(users, `${user.uid}/cart`);
+  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartItemSnapshot = await getDoc(cartItemRef);
+  if ((cartItemSnapshot).exists()) {
+    const { quantity } = cartItemSnapshot.data();
+    try {
+      await updateDoc(cartItemRef, {
+        updatedAt: serverTimestamp(),
+        quantity: quantity + 1
+      })
+    } catch (error) {
+      if (error instanceof Error)
+        console.log('error updating cart', error?.message);
+    }
+  }
+  else {
+    try {
+      await setDoc(cartItemRef, {
+
+        product,
+        quantity: 1,
+        createdAt: serverTimestamp()
+      })
+    } catch (error) {
+      if (error instanceof Error)
+        console.log('error adding to cart', error?.message);
+    }
+  }
+
+}
+
+export const removeProductFromServer = async (user: User, product: IProduct) => {
+  if (!user) return;
+  const cartRef =  collection(users, `${user.uid}/cart`);
+  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartItemSnapshot = await getDoc(cartItemRef);
+  if ((cartItemSnapshot).exists()) {
+    const { quantity } = cartItemSnapshot.data();
+    if (quantity > 1) {
+      try {
+        await updateDoc(cartItemRef, {
+          updatedAt: serverTimestamp(),
+          quantity: quantity - 1
+        })
+      } catch (error) {
+        if (error instanceof Error)
+          console.log('error updating cart', error?.message);
+      }
+    }
+    else {
+      try {
+        await deleteDoc(cartItemRef)
+      } catch (error) {
+        if (error instanceof Error)
+          console.log('error deleting cart', error?.message);
+      }
+    }
+
+  }
+}
+
+export const clearCart = async (user: User,product:IProduct) => {
+  if (!user) return;
+  const cartRef =  collection(users, `${user.uid}/cart`);
+  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartItemSnapshot = await getDoc(cartItemRef);
+  if ((cartItemSnapshot).exists()) {
+    try {
+      await deleteDoc(cartItemRef)
+    } catch (error) {
+      if (error instanceof Error)
+        console.log('error deleting cart', error?.message);
+    }
+  }
 }

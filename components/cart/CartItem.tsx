@@ -5,6 +5,8 @@ import { shortenTitle } from '@helpers/methods'
 import DeleteIcon from '@public/images/icon-delete.svg'
 import { deleteCart } from '@utils/Redux/cart/cart.slice'
 import { useAppDispatch } from '@helpers/redux.hooks'
+import { auth, clearCart } from '@utils/firebase'
+import { toast } from 'react-toastify'
 
 const CartItem = ({ product }: ProductItem) => {
     const getPrice = () => {
@@ -12,8 +14,13 @@ const CartItem = ({ product }: ProductItem) => {
     }
     const dispatch = useAppDispatch()
 
-    const deleteCartItem = () => {
+    const deleteCartItem = async() => {
         dispatch(deleteCart(product))
+        await clearCart(auth.currentUser!, product).then(() => {
+            console.log('deleted')
+            toast.success('Item deleted from cart')
+        })
+
 
     }
     return (

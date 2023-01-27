@@ -1,8 +1,21 @@
 import SignIn from '@components/signing/sign-in'
+import { useAppSelector } from '@helpers/redux.hooks'
 import { GetServerSideProps } from 'next'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const SignInPage = () => {
+  
+  const {user} = useAppSelector((state) => state.user)
+  useEffect(() => {
+    if(user){
+      window.location.href = '/'
+    }
+  
+    return () => {
+      
+    }
+  }, [user])
+  
   return (
     <SignIn />
   )
@@ -17,7 +30,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }}
 
   const cookies = req?.headers?.cookie
-  console.log(cookies)
   if (cookies) {
     return {
       redirect: {

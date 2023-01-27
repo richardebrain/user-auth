@@ -10,6 +10,7 @@ import Header from '../header';
 import { setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
 import { setAddress } from '@utils/Redux/address/address.slice';
+import React from 'react';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -17,8 +18,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     const dispatch = useAppDispatch()
-    const { user: { user }, address:{address} } = useAppSelector((state) => state)
-    console.log(address)
+    const { user: { user } } = useAppSelector((state) => state)
     useEffect(() => {
         // listen to user changes
         if (user) return
@@ -45,23 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
 
     }, [dispatch, user])
 
-    useEffect(() => {
-        // listen to address changes
-        if (address.length > 0 ) return;
-        const unSubscribe = async () => {
-            if (!auth?.currentUser) return
-            const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
-            addressSnapshot.forEach((doc) => {
-                dispatch(setAddress({
-                    ...doc.data() as AddressProps,
-                    id: doc.id,
-                }))
-            })
-        }
-        return () => {
-            unSubscribe()
-        }
-    }, [address.length, dispatch])
+   
 
 
     return (

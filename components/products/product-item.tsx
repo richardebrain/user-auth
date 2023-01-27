@@ -37,7 +37,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
             </div>
             <div className='flex flex-col gap-2 items-start '>
 
-                <h1 className='text-Black font-medium text-xl'>{shortenTitle(product.title, 12)}</h1>
+                <h1 className='text-Black font-medium text-xl'>{shortenTitle(product.title, 12).toLocaleLowerCase()}</h1>
                 <span className='text-Black font-medium text-md'>${product.price}</span>
             </div>
 

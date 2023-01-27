@@ -22,23 +22,16 @@ import UserIcon from '../public/images/user.svg'
 import { toast } from 'react-toastify';
 
 const Header = () => {
-    const [isLoading, setIsLoading] = useState(false)
-    // const ref = useRef() as RefObject<HTMLDivElement>
     const dispatch = useAppDispatch()
 
     const { user: { user }, cart: { hidden }, modal: { accountBar, sidebarView } } = useAppSelector(state => state)
-    // useEffect(() => {
-    //     if (isLoading) {
-    //         window.location.reload()
-    //     }
-    // }, [isLoading])
+
     const { ref: sidebarRef } = RefreshHook({ view: sidebarView, toggleView: toggleSidebar })
     const handleSignOut = async () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
             dispatch(logout())
             toast.success('Logout successful')
-            setIsLoading(true)
 
         })
     }
@@ -63,10 +56,10 @@ const Header = () => {
                         <CloseIcon className='cursor-pointer' />
                     }
                     {/* sidebar */}
-                    {
-                        <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] ${!sidebarView ? 'animate-left' : '-translate-x-full duration-500 ease-in '} left-0 z-50 w-full  `} ref={sidebarRef}  >
-                            <Sidebar />
-                        </div>}
+
+                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] ${!sidebarView ? 'animate-left' : '-translate-x-full duration-500 ease-in '} left-0 z-50 w-full  `} ref={sidebarRef}  >
+                        <Sidebar />
+                    </div>
                 </div>
 
                 <div className="nav-item">
