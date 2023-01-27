@@ -27,6 +27,7 @@ const SingleItem = ({ product }: SingleItemProps) => {
     const dispatch = useDispatch()
     const { cartItems } = useAppSelector(state => state.cart)
     const decrement = async () => {
+        if(getSpecificProduct(product) == 0) return;
         setIsAddingOrRemoving(true)
         if (getSpecificProduct(product) > 0) {
             await removeProductFromServer(auth?.currentUser!, product).then(() => {
