@@ -27,7 +27,7 @@ const SingleItem = ({ product }: SingleItemProps) => {
     const dispatch = useDispatch()
     const { cartItems } = useAppSelector(state => state.cart)
     const decrement = async () => {
-        if(getSpecificProduct(product) == 0) return;
+        if (getSpecificProduct(product) == 0) return;
         setIsAddingOrRemoving(true)
         if (getSpecificProduct(product) > 0) {
             await removeProductFromServer(auth?.currentUser!, product).then(() => {
@@ -40,7 +40,7 @@ const SingleItem = ({ product }: SingleItemProps) => {
             })
         }
     }
-    const add = async () => {
+    const add = async (product: IProduct) => {
         setIsAddingOrRemoving(true)
         await addItemToCart(auth?.currentUser!, product).then(() => {
             toast.success('Item added to cart', {
@@ -104,20 +104,20 @@ const SingleItem = ({ product }: SingleItemProps) => {
                 {
                     <div className={`cart flex items-center xs:gap-8 gap-6 justify-center `}>
                         <div className="flex bg-GB h-12 w-32 xs:flex-1 xs:w-16 rounded-md sm:px-4  items-center justify-between">
-                            <button onClick={decrement} className={`cursor-pointer ${isLast && 'disabled:cursor-not-allowed'} h-full w-8 xs:w-12 px-4 `} disabled={isAddingOrRemoving}>
+                            <button onClick={decrement} className={`cursor-pointer ${isLast && 'cursor-not-allowed '} h-full w-8 xs:w-12 px-4 `} disabled={isAddingOrRemoving}>
                                 <IconMinus />
                             </button>
 
                             {isAddingOrRemoving ? <Spinner className="text-white w-4 h-4 animate-spin" /> :
                                 <span className="text-Black font-bold text-2xl w-4">{getSpecificProduct(product)}</span>
                             }
-                            <button className="cursor-pointer h-full pl-1 w-8 xs-w-12 text-center" onClick={add} disabled={isAddingOrRemoving}>
+                            <button className="cursor-pointer h-full pl-1 w-8 xs-w-12 text-center" onClick={() => add(product)} disabled={isAddingOrRemoving}>
                                 <IconPlus />
                             </button>
 
                         </div>
 
-                        <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 xs:w-52 w-40  rounded-md " onClick={add} disabled={isAddingOrRemoving}>
+                        <button className="flex items-center justify-center gap-4 bg-Orange text-White h-12 xs:w-52 w-40  rounded-md " onClick={() => add(product)} disabled={isAddingOrRemoving}>
 
                             <CartIcon />
                             <span>Add to cart</span>

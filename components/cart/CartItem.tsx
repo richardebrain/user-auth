@@ -1,7 +1,7 @@
 import { IProduct, ProductItem } from '@helpers/types'
 import React from 'react'
 import Image2 from 'next/image'
-import { shortenTitle } from '@helpers/methods'
+import { getPrice, shortenTitle } from '@helpers/methods'
 import DeleteIcon from '@public/images/icon-delete.svg'
 import { deleteCart } from '@utils/Redux/cart/cart.slice'
 import { useAppDispatch } from '@helpers/redux.hooks'
@@ -9,15 +9,12 @@ import { auth, clearCart } from '@utils/firebase'
 import { toast } from 'react-toastify'
 
 const CartItem = ({ product }: ProductItem) => {
-    const getPrice = () => {
-        return (product.price * product.quantity).toFixed(2)
-    }
+
     const dispatch = useAppDispatch()
 
-    const deleteCartItem = async() => {
+    const deleteCartItem = async (product: IProduct) => {
         dispatch(deleteCart(product))
         await clearCart(auth.currentUser!, product).then(() => {
-            console.log('deleted')
             toast.success('Item deleted from cart')
         })
 
@@ -37,11 +34,11 @@ const CartItem = ({ product }: ProductItem) => {
             </div>
             <div className='flex flex-col text-VDB font-medium w-48'>
                 <p>{shortenTitle(product.title, 21)}</p>
-                <p className='gap-2 flex'>$ {product.price} &times; {product.quantity} <span className='font-bold text-Black'>${getPrice()}</span></p>
+                <p className='gap-2 flex'>$ {product.price} &times; {product.quantity} <span className='font-bold text-Black'>${getPrice(product)}</span></p>
 
             </div>
             <div>
-                <button onClick={deleteCartItem}>
+                <button onClick={() => deleteCartItem(product)}>
                     <DeleteIcon className='w-4 h-4 cursor-pointer' />
                 </button>
             </div>

@@ -121,13 +121,13 @@ const Header = () => {
                 {/* account modal */}
                 {
                     user && user !== undefined && !accountBar && (
-                        <div className='hidden absolute xs:top-32 top-16 xs:right-44 right-0 bg-white w-48 h-40 rounded-lg shadow-lg z-50 xs:block' >
-                            <div className='flex flex-col gap-4 p-4 '>
-                                <div className='flex flex-col gap-2 font-medium text-GB items-start'>
+                        <div className='hidden absolute xs:top-32 top-16 xs:right-44 right-0 bg-white w-48 h-48 rounded-lg shadow-lg z-50 xs:block' >
+                            <div className=''>
+                                <div className='flex flex-col gap-2 font-medium text-Black items-start '>
                                     <Link href={`${routes.MYACCOUNT}my-account`} className={`${hoverStyles}`} >My Account</Link>
                                     <Link href={routes.ORDERS} className={`${hoverStyles}`}>My Orders</Link>
                                     <Link href={routes.WISHLIST} className={`${hoverStyles}`}>My Wishlist</Link>
-                                    <button onClick={() => handleSignOut()} className={`${hoverStyles} cursor-pointer`}>Logout</button>
+                                    <button onClick={() => handleSignOut()} className={`${hoverStyles} cursor-pointer border-t`}>Logout</button>
                                 </div>
                             </div>
                         </div>
@@ -141,4 +141,4 @@ const Header = () => {
 
 export default Header
 
-const hoverStyles = 'hover:text-Orange'
+const hoverStyles = 'hover:text-Orange hover:bg-gray-200 w-full px-4 h-10 border-gray-200 flex items-center'

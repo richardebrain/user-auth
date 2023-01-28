@@ -32,8 +32,8 @@ const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const handleFormSubmit = async ({ email, password }: IForm) => {
     try {
       await signInWithEmailAndPassword(auth, email, password).then(res => {
-        toast.success('Login successful')
         router.push('/')
+        toast.success('Login successful')
       })
     }
     catch (error) {

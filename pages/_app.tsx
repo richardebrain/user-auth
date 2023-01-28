@@ -32,9 +32,9 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
   }, [])
   const getLayout = Component.getLayout ?? ((page) =>
     <Provider store={store}>
-      <Layout> 
+      <Layout>
         {page}
-        <ToastContainer />
+        <ToastContainer autoClose={3000} />
       </Layout>
     </Provider>
   )
@@ -42,10 +42,10 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
 
   return (
 
-    < Provider store={store}>
+    <>
+
       {getLayout(<Component {...pageProps} />)}
-      <ToastContainer />
-    </Provider>
+    </>
 
 
   )

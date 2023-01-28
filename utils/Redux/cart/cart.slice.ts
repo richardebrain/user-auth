@@ -24,10 +24,14 @@ export const cartSlice = createSlice({
         toggleCartView: (state) => {
             state.hidden = !state.hidden;
             
+        },
+        fetchFromServer: (state, action: PayloadAction<IProduct[]>) => {
+            state.cartItems = action.payload;
+            
         }
 
 
     }
 })
-export const {  addTocCart ,deleteCart,removeCart,toggleCartView} = cartSlice.actions;
+export const {  addTocCart ,deleteCart,removeCart,toggleCartView,fetchFromServer} = cartSlice.actions;
 export default cartSlice.reducer;   

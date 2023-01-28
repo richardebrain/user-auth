@@ -104,16 +104,6 @@ export type OrderProps = {
     userId: string;
 
 }
-// export interface UserSnapSot {
-//     displayName: string;
-//     email: string;
-//     createdAt: {
-//         seconds: number;
-//         nanoseconds: number;
-//     };
-//     firstName: string;
-//     lastName: string;
-// }
 
 export type AddressForm = {
     firstName: string

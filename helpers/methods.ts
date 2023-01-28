@@ -93,3 +93,7 @@ export const productByCategory = (products: IProduct[]) => {
         }
     })
 }
+
+export const getPrice = (product:IProduct) => {
+    return (product.price * product.quantity).toFixed(2)
+}
