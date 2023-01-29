@@ -1,37 +1,13 @@
-import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks'
 import { accountBarNav } from '@helpers/routes'
-import { AddressProps } from '@helpers/types'
-import address from '@pages/account/address'
-import { auth, db } from '@utils/firebase'
-import { setAddress, setAddressFromServer } from '@utils/Redux/address/address.slice'
-import { getDocs, collection } from 'firebase/firestore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 
 type accountLayoutProps = {
     children: ReactElement
 }
 
 const AccountLayout = ({ children }: accountLayoutProps) => {
-    const { address: { address } } = useAppSelector((state) => state)
-
-    const dispatch = useAppDispatch()
-    useEffect(() => {
-        // listen to address changes
-        if (address.length > 0) return;
-        const unSubscribe = async () => {
-            if (!auth?.currentUser) return
-            const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
-            const eachAddress = addressSnapshot.docs.map((doc) => doc.data()
-            )
-            dispatch(setAddressFromServer(eachAddress as AddressProps[]))
-
-        }
-        return () => {
-            unSubscribe()
-        }
-    }, [address.length, dispatch])
 
     const router = useRouter()
     return (

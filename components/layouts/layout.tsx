@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks';
 import Header from '../header';
 import { setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
-import { setAddress } from '@utils/Redux/address/address.slice';
+import { setAddress, setAddressFromServer } from '@utils/Redux/address/address.slice';
 import React from 'react';
 import { addTocCart, fetchFromServer } from '@utils/Redux/cart/cart.slice';
 
@@ -19,7 +19,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     const dispatch = useAppDispatch()
-    const { user: { user } } = useAppSelector((state) => state)
+    const { user: { user },address:{address} } = useAppSelector((state) => state)
     useEffect(() => {
         // listen to user changes
         if (user) return
@@ -59,7 +59,21 @@ const Layout = ({ children }: LayoutProps) => {
 
     }, [dispatch, user])
 
+    useEffect(() => {
+        // listen to address changes
+        if (address.length > 0) return;
+        const unSubscribe = async () => {
+            if (!auth?.currentUser) return
+            const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
+            const eachAddress = addressSnapshot.docs.map((doc) => doc.data()
+            )
+            dispatch(setAddressFromServer(eachAddress as AddressProps[]))
 
+        }
+        return () => {
+            unSubscribe()
+        }
+    }, [address.length, dispatch])
 
 
     return (

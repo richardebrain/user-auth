@@ -10,7 +10,7 @@ const ProductList = ({ product}: ProductListProps) => {
         return <div>Loading...</div>
     }
     return (
-        <div className='flex flex-col xs:flex-wrap xs:gap-8 xs:justify-start xs:flex-row mx-auto items-center'>
+        <div className='flex flex-col xs:flex-wrap xs:gap-8 xs:justify-start xs:flex-row  items-center'>
             {
                 product.map((product: IProduct) => {
                     return (

@@ -14,7 +14,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
     const [imageLoading, setImageLoading] = useState<boolean>(true)
 
     return (
-        <Link className='shadow-lg bg-White w-[185px] xs:w-[185px] h-48 xs:h-48 mb-10 py-2 flex flex-col  cursor-pointer gap-6 items-center justify-between rounded-md' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
+        <Link className='shadow-lg bg-White w-[185px] xs:w-40 h-48 xs:h-40 mb-10 flex flex-col  cursor-pointer gap-2 items-center rounded-md' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
 
             <div className='flex mt-4 items-center justify-center relative'>
                 {
@@ -35,9 +35,9 @@ const ProductItem = ({ product }: ProductItemProps) => {
                 />
 
             </div>
-            <div className='flex flex-col gap-2 items-start '>
+            <div className='flex flex-col gap-1 items-start '>
 
-                <h1 className='text-Black font-medium text-xl'>{shortenTitle(product.title, 12).toLocaleLowerCase()}</h1>
+                <h1 className='text-Black font-medium text-base'>{shortenTitle(product.title, 17).toLocaleLowerCase()}</h1>
                 <span className='text-Black font-medium text-md'>${product.price}</span>
             </div>
 
