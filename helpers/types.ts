@@ -102,6 +102,7 @@ export type AddressProps = {
     userId: string
 }
 export type AddressStateProps = {
+    [x: string]: any;
     address: AddressProps[];
 
 }

@@ -31,22 +31,19 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
 
   }, [])
   const getLayout = Component.getLayout ?? ((page) =>
-    <Provider store={store}>
-      <Layout>
-        {page}
-        <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false}/>
-      </Layout>
-    </Provider>
+    <Layout>
+      {page}
+    </Layout>
   )
-
 
   return (
 
     <>
-    <Provider store={store}>
-      {getLayout(<Component {...pageProps} />)}
-      <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false}/>
-    </Provider>
+      <Provider store={store}>
+
+        {getLayout(<Component {...pageProps} />)}
+        <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false} />
+      </Provider>
     </>
 
 
