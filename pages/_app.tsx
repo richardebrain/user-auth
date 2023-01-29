@@ -34,7 +34,7 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
     <Provider store={store}>
       <Layout>
         {page}
-        <ToastContainer autoClose={3000} pauseOnHover={false}/>
+        <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false}/>
       </Layout>
     </Provider>
   )
@@ -45,6 +45,7 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
     <>
     <Provider store={store}>
       {getLayout(<Component {...pageProps} />)}
+      <ToastContainer autoClose={3000} pauseOnHover={false} pauseOnFocusLoss={false}/>
     </Provider>
     </>
 

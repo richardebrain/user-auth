@@ -22,7 +22,7 @@ export default function Home({ data }: { data: IProduct[] }) {
 }
 
 export const getStaticProps = async () => {
-  const res = await axios.get('https://fakestoreapi.com/products')
+  const res = await axios.get('https://fakestoreapi.com/products?limit=8')
   const data = await res.data
   return {
     props: {

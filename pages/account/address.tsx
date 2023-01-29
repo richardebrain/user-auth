@@ -12,7 +12,9 @@ import { getAddressCount } from '@helpers/methods'
 
 const AddressBookPage = () => {
   const { address } = useAppSelector(state => state.address)
-
+  if (address.length === 0) return
+  const sortedAddress = [...address].sort((a, b) =>
+    a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1 )
 
   return (
     <div className='flex flex-col items-center xs:w-full mx-auto font-kumbh gap-4'>
@@ -21,7 +23,7 @@ const AddressBookPage = () => {
       </h1>
       <div className='flex flex-col w-full xs:grid xs:grid-cols-2 xs:gap-4 px-4'>
         {
-          address.map((item) => (
+          sortedAddress.map((item) => (
             <AddressCard key={item.id} addressCard={item} />
           ))
         }

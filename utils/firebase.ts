@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { cookiesKey } from "@helpers/methods";
-import { AddressForm, AddressProps, IProduct, ProductItem, UserProps } from "@helpers/types";
+import { AddressProps, IProduct, ProductItem, UserProps } from "@helpers/types";
 import { setCookie } from "cookies-next";
 import { initializeApp } from "firebase/app";
 import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
@@ -137,11 +137,11 @@ export const googleSignIn = () => {
 
 }
 const address = collection(db, 'address');
-export const createUserAddress = async (userAuth: any, addressData?: AddressForm) => {
+export const createUserAddress = async (userAuth: any, addressData?: AddressProps) => {
   if (!userAuth) return;
   // const addressRef = doc(address, `${userAuth.uid}`);
   const userAddressFol = collection(address, `/${userAuth.uid}/address`);
-  const addressRef = doc(userAddressFol);
+  const addressRef = doc(userAddressFol, addressData?.id!);
   // check if there is address is empty
 
   const addressSnapshot = await getDocs(collection(db, 'address', `${userAuth.uid}/address`))
@@ -175,7 +175,7 @@ export const createUserAddress = async (userAuth: any, addressData?: AddressForm
         await setDoc(addressRef, {
           createdAt,
           userId: userAuth.uid,
-
+          isDefault: false,
           ...addressData,
 
         })
@@ -190,7 +190,7 @@ export const createUserAddress = async (userAuth: any, addressData?: AddressForm
 }
 
 
-export const updateUserAddress = async (userAuth: User, addressData?: AddressForm, addressId?: string) => {
+export const updateUserAddress = async (userAuth: User, addressData?: AddressProps, addressId?: string) => {
   if (!userAuth) return;
   const userAddressFol = collection(address, `/${userAuth.uid}/address`);
   const addressRef = doc(userAddressFol, addressId);
@@ -217,6 +217,14 @@ export const updateUserAddress = async (userAuth: User, addressData?: AddressFor
 export const deleteUserAddressById = async (userAuth: User, item: AddressProps) => {
   if (!userAuth) return;
   const userAddressFol = collection(address, `/${userAuth.uid}/address`);
+  const allAddress = await getDocs(userAddressFol)
+  if (allAddress.size == 1) {
+    console.log('cant delete')
+    updateDoc(doc(userAddressFol, item.id), {
+      isDefault: true
+    })
+    return
+  }
   const addressRef = doc(userAddressFol, item.id);
   const snapShot = await getDoc(addressRef);
   if (snapShot.exists()) {
@@ -284,10 +292,10 @@ export const setAsDefaultAddress = async (userAuth: User, addressData?: AddressP
 
 }
 
-export const addItemToCart = async (user: User, product : IProduct) => {
+export const addItemToCart = async (user: User, product: IProduct) => {
   if (!user) return;
-  const cartRef =  collection(users, `${user.uid}/cart`);
-  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartRef = collection(users, `${user.uid}/cart`);
+  const cartItemRef = doc(cartRef, `${product.title} ${product.id}`);
   const cartItemSnapshot = await getDoc(cartItemRef);
   if ((cartItemSnapshot).exists()) {
     const { quantity } = cartItemSnapshot.data();
@@ -319,8 +327,8 @@ export const addItemToCart = async (user: User, product : IProduct) => {
 
 export const removeProductFromServer = async (user: User, product: IProduct) => {
   if (!user) return;
-  const cartRef =  collection(users, `${user.uid}/cart`);
-  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartRef = collection(users, `${user.uid}/cart`);
+  const cartItemRef = doc(cartRef, `${product.title} ${product.id}`);
   const cartItemSnapshot = await getDoc(cartItemRef);
   if ((cartItemSnapshot).exists()) {
     const { quantity } = cartItemSnapshot.data();
@@ -347,10 +355,10 @@ export const removeProductFromServer = async (user: User, product: IProduct) => 
   }
 }
 
-export const clearCart = async (user: User,product:IProduct) => {
+export const clearCart = async (user: User, product: IProduct) => {
   if (!user) return;
-  const cartRef =  collection(users, `${user.uid}/cart`);
-  const cartItemRef =  doc(cartRef, `${product.title} ${product.id}`);
+  const cartRef = collection(users, `${user.uid}/cart`);
+  const cartItemRef = doc(cartRef, `${product.title} ${product.id}`);
   const cartItemSnapshot = await getDoc(cartItemRef);
   if ((cartItemSnapshot).exists()) {
     try {

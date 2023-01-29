@@ -1,7 +1,7 @@
 import React, { ReactHTML, ReactHTMLElement, useEffect, useState } from 'react'
 import CustomInput from '@components/forms/input'
 import { useForm } from 'react-hook-form'
-import { AddressForm, AddressStateProps } from '@helpers/types'
+import { AddressProps, AddressStateProps } from '@helpers/types'
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import CustomDropdown from '@components/forms/dropdown'
@@ -11,16 +11,20 @@ import { formatValue } from '@helpers/methods'
 import { auth, createUserAddress, updateUserAddress } from '@utils/firebase'
 import { useRouter } from 'next/router'
 import Spinner from '@components/Spinner'
-import { useAppSelector } from '@helpers/redux.hooks'
+import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks'
 import { toast } from 'react-toastify'
-
+import { editAddress, setAddress } from '@utils/Redux/address/address.slice'
+import { v4 as uuidv4 } from 'uuid'
 
 type CountryProps = {
     name: string,
     code?: string
 }
 const AddressForm = () => {
+
+    const id = uuidv4()
     const router = useRouter()
+    const dispatch = useAppDispatch()
     const { address } = useAppSelector(state => state.address)
     const slug = router.query.slug
     const getAddressToEdit = address.find(item => item.id === slug)
@@ -36,7 +40,7 @@ const AddressForm = () => {
         additionalPhoneNumber: Yup.string(),
 
     })
-    const { register, handleSubmit, reset, getValues, watch, formState: { errors, isSubmitting } } = useForm<AddressForm>({
+    const { register, handleSubmit, reset, getValues, watch, formState: { errors, isSubmitting } } = useForm<AddressProps>({
         resolver: yupResolver(addressSchema)
     })
     useEffect(() => {
@@ -79,15 +83,23 @@ const AddressForm = () => {
             }
         }
     )
-    const handleFormSubmit = async (data: AddressForm) => {
+    const handleFormSubmit = async (data: AddressProps) => {
         if (getAddressToEdit) {
             updateUserAddress(auth?.currentUser!, data, getAddressToEdit.id)
-            toast.success('Address Updated Successfully')
+            dispatch(editAddress(data))
+            toast.success('Address Updated Successfully', {
+                toastId: 'addressUpdated'
+            })
             router.back()
         } else {
 
-            await createUserAddress(auth?.currentUser, data).then((res) => {
-                toast.success('Address Added Successfully')
+            await createUserAddress(auth?.currentUser, { ...data, id: id }).then((res) => {
+                console.log(res)
+                dispatch(setAddress({ ...data, id: id }))
+                toast.success('Address Added Successfully', {
+                    toastId: 'addressAdded'
+                })
+
                 reset()
                 router.back()
 
@@ -118,7 +130,7 @@ const AddressForm = () => {
                         placeholder='Last Name'
                         required
                         register={register}
-                        error={errors.lastname?.message}
+                        error={errors.lastName?.message}
                     />
                 </div>
                 <div className='flex flex-col w-full'>

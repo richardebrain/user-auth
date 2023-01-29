@@ -15,6 +15,7 @@ type accountLayoutProps = {
 
 const AccountLayout = ({ children }: accountLayoutProps) => {
     const { address: { address } } = useAppSelector((state) => state)
+    
     const dispatch = useAppDispatch() 
     useEffect(() => {
         // listen to address changes
@@ -32,7 +33,7 @@ const AccountLayout = ({ children }: accountLayoutProps) => {
         return () => {
             unSubscribe()
         }
-    }, [address.length])
+    }, [address.length,dispatch])
     
     const router = useRouter()
     return (

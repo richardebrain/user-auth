@@ -13,7 +13,7 @@ const CreateAddress = () => {
         <div className='flex flex-col gap-4'>
              <div className='flex px-8 border-b items-center h-12 gap-6'  >
                 <BackIcon onClick={() => router.back()} className=' cursor-pointer w-4'/>
-                <h1>Edit Address</h1>
+                <h1>Create New Address</h1>
 
             </div>
             <AddressForm />

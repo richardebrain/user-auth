@@ -1,9 +1,9 @@
 import { formatstateOrCountry } from '@helpers/methods'
-import { useAppDispatch } from '@helpers/redux.hooks'
+import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks'
 import { routes } from '@helpers/routes'
 import { AddressProps } from '@helpers/types'
 import { deleteUserAddressById, auth, setAsDefaultAddress } from '@utils/firebase'
-import { removeAddress, setAsDefault } from '@utils/Redux/address/address.slice'
+import { removeAddress, setAsDefault, setLastToDefault } from '@utils/Redux/address/address.slice'
 import { User } from 'firebase/auth'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
@@ -13,15 +13,23 @@ import { toast } from 'react-toastify'
 
 const AddressCard = ({ addressCard }: { addressCard: AddressProps }) => {
 
+    const { address } = useAppSelector(state => state.address)
 
 
     const dispatch = useAppDispatch()
 
     const deleteAddress = async (item: AddressProps) => {
-        dispatch(removeAddress(item))
-        await deleteUserAddressById(auth.currentUser as User, item)
-        toast.success('Address deleted')
+        if (address.length === 1) {
+            await deleteUserAddressById(auth.currentUser as User, item)
+            toast.error('You must have at least one address')
+        } else {
 
+            dispatch(removeAddress(item))
+            toast.success('Address deleted')
+            await deleteUserAddressById(auth.currentUser as User, item)
+
+            dispatch(setLastToDefault(item))
+        }
     }
     const handleDefault = async (item: AddressProps) => {
         dispatch(setAsDefault(item))

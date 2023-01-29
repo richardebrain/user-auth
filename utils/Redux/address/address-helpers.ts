@@ -1,16 +1,27 @@
 import { AddressProps, AddressStateProps } from "@helpers/types";
+import { toast } from "react-toastify";
 
 export const addAddressbyId = (address: AddressProps[], addressToAdd: AddressProps) => {
     const existingAddress = address.find((item) => item.id === addressToAdd.id);
+    if (address.length === 0) {
+        addressToAdd.isDefault = true
+    }
     if (existingAddress) {
-        return address.map((item) => item.id === addressToAdd.id ? { ...item, ...addressToAdd } : item)
+        return address.map((item) => item.id === addressToAdd.id ? { ...item, ...addressToAdd, isDefault: false } : item)
     }
     return [...address, addressToAdd]
 
 }
 
-export const removeAddressById = (address: AddressProps[], { id }: AddressProps) => {
-    return address.filter((item) => item.id !== id)
+export const setLastItemtoDefault = (address: AddressProps[], addressToRemove: AddressProps) => {
+    if (address.length === 1) {
+        address.map((item) => {
+            item.isDefault = true
+            return item
+        }
+        )
+    }
+    return address
 
 }
 
@@ -40,4 +51,9 @@ export const setDefault = (address: AddressProps[], addressToSetAsDefault: Addre
         return item
     })
     return address
+    
+}
+
+export const deleteAddress = (address: AddressProps[], addressToRemove: AddressProps) => {
+   return address.filter((item) => item.id !== addressToRemove.id)
 }

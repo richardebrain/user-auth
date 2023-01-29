@@ -75,24 +75,6 @@ export type UserProps = {
     firstName: string;
     lastName: string;
 }
-export type AddressProps = {
-    id: string;
-    address: string;
-    city: string;
-    country: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    state: string;
-    additionalInfo: string;
-    userId: string;
-    isDefault: boolean;
-    additionalPhoneNumber: string;
-}
-export type AddressStateProps = {
-    address: AddressProps[];
-
-}
 export type OrderProps = {
     id: string;
     createdAt: {
@@ -105,18 +87,22 @@ export type OrderProps = {
 
 }
 
-export type AddressForm = {
+export type AddressProps = {
     firstName: string
-    lastname: string
+    lastName: string
     address: string
     city: string
     state: string
     country: string
     phone: string
     additionalInfo: string
-    addressId?: string
+    id?: string
     isDefault?: boolean
-    additionalPhoneNumber: string
-
+    additionalPhoneNumber?: string
+    userId: string
+}
+export type AddressStateProps = {
+    address: AddressProps[];
 
 }
+
