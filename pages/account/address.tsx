@@ -11,10 +11,10 @@ import AccountLayout from '@components/layouts/account-layout'
 import { getAddressCount } from '@helpers/methods'
 
 const AddressBookPage = () => {
+  
   const { address } = useAppSelector(state => state.address)
   if (address.length === 0) return
-  const sortedAddress = [...address].sort((a, b) =>
-    a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1 )
+  const sortedAddress = [...address].sort((a, b) => a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1)
 
   return (
     <div className='flex flex-col items-center xs:w-full mx-auto font-kumbh gap-4'>

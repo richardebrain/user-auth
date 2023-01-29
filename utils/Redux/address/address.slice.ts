@@ -27,10 +27,13 @@ export const addressSlice = createSlice({
         },
         setLastToDefault: (state, action: PayloadAction<AddressProps>) => {
             state.address = setLastItemtoDefault(state.address, action.payload)
+        },
+        setAddressFromServer: (state, action: PayloadAction<AddressProps[]>) => {
+            state.address = action.payload
         }
 
     }
 })
 
-export const { setAddress, removeAddress, editAddress, setAsDefault ,setLastToDefault} = addressSlice.actions
+export const { setAddress, removeAddress, editAddress, setAsDefault ,setLastToDefault,setAddressFromServer} = addressSlice.actions
 export default addressSlice.reducer

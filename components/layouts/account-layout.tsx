@@ -3,7 +3,7 @@ import { accountBarNav } from '@helpers/routes'
 import { AddressProps } from '@helpers/types'
 import address from '@pages/account/address'
 import { auth, db } from '@utils/firebase'
-import { setAddress } from '@utils/Redux/address/address.slice'
+import { setAddress, setAddressFromServer } from '@utils/Redux/address/address.slice'
 import { getDocs, collection } from 'firebase/firestore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -15,26 +15,24 @@ type accountLayoutProps = {
 
 const AccountLayout = ({ children }: accountLayoutProps) => {
     const { address: { address } } = useAppSelector((state) => state)
-    
-    const dispatch = useAppDispatch() 
+
+    const dispatch = useAppDispatch()
     useEffect(() => {
         // listen to address changes
-        if (address.length > 0 ) return;
+        if (address.length > 0) return;
         const unSubscribe = async () => {
             if (!auth?.currentUser) return
             const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
-            addressSnapshot.forEach((doc) => {
-                dispatch(setAddress({
-                    ...doc.data() as AddressProps,
-                    id: doc.id,
-                }))
-            })
+            const eachAddress = addressSnapshot.docs.map((doc) => doc.data()
+            )
+            dispatch(setAddressFromServer(eachAddress as AddressProps[]))
+
         }
         return () => {
             unSubscribe()
         }
-    }, [address.length,dispatch])
-    
+    }, [address.length, dispatch])
+
     const router = useRouter()
     return (
         <div className='flex justify-between gap-6 font-kumbh px-4'>
