@@ -26,13 +26,7 @@ const SingleProductPage = ({ product }: SingleProductPageProps) => {
         </div>
     )
 }
-SingleProductPage.getLayout = function getLayout(page: ReactElement) {
-    return (
-      <Layout>
-        {page}
-      </Layout>
-    )
-  }
+
 export default SingleProductPage
 
 

@@ -23,13 +23,6 @@ export default function Home({ data }: { data: IProduct[] }) {
   )
 }
 
-Home.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout>
-      {page}
-    </Layout>
-  )
-}
 
 export const getStaticProps = async () => {
   const res = await axios.get('https://fakestoreapi.com/products?limit=8')

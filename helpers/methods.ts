@@ -97,3 +97,11 @@ export const productByCategory = (products: IProduct[]) => {
 export const getPrice = (product:IProduct) => {
     return (product.price * product.quantity).toFixed(2)
 }
+
+export const getTotals = (cart: IProduct[]) => {
+    let total = 0
+    cart.map((product: IProduct) => {
+        total += product.price * product.quantity
+    })
+    return total.toFixed(2)
+}

@@ -28,13 +28,6 @@ const Checkout = () => {
     )
 }
 
-// Checkout.getLayout = (page: ReactElement) => (
-
-//     <Layout >
-//         <AccountLayout>
-//             {page}
-//         </AccountLayout>
-//     </Layout >)
 
 export default Checkout
 

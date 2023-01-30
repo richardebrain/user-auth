@@ -4,9 +4,11 @@ import React from 'react'
 import CartItem from './CartItem'
 import { routes } from '@helpers/routes'
 import Link from 'next/link'
+import { getTotals } from '@helpers/methods'
 
 const Cart = () => {
     const cart = useAppSelector(state => state?.cart.cartItems)
+
     return (
         <div className='flex justify-between flex-col w-80 z-50 bg-white shadow-md'>
             {/* cart header */}
@@ -24,8 +26,8 @@ const Cart = () => {
 
             </div>
             {/* cart footer */}
-            <div className='flex h-20 justify-center items-center'>
-                <Link className='bg-Black text-white w-60 h-10 rounded-md flex items-center flex-col justify-center' href={routes.CHECKOUT} >Checkout</Link>
+            <div className='flex h-20 justify-center items-center '>
+                <Link className='bg-Black text-white w-60 h-10 rounded-md flex items-center justify-center gap-4 ' href={routes.CHECKOUT} >Checkout <span className=''>( &#8358;{getTotals(cart)} )</span></Link>
             </div>
         </div>
     )

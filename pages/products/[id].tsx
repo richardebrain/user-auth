@@ -19,13 +19,7 @@ const ProductPage = ({ data }: { data: IProduct[] }) => {
     );
 }
 
-ProductPage.getLayout = function getLayout(page: ReactElement) {
-    return (
-      <Layout>
-        {page}
-      </Layout>
-    )
-  }
+
 
 export default ProductPage;
 export const getStaticPaths: GetStaticPaths = async () => {

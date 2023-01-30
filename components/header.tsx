@@ -27,6 +27,8 @@ const Header = () => {
     const { user: { user }, cart: { hidden }, modal: { accountBar, sidebarView } } = useAppSelector(state => state)
 
     const { ref: sidebarRef } = RefreshHook({ view: sidebarView, toggleView: toggleSidebar })
+    const { ref: accountBarRef } = RefreshHook({ view: accountBar, toggleView: toggleAccountBar })
+    const { ref: cartRef } = RefreshHook({ view: hidden, toggleView: toggleCartView })
     const handleSignOut = async () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
@@ -81,7 +83,7 @@ const Header = () => {
 
             {/* desktop view */}
             <div className=" nav-item flex xs:w-56  flex-row-reverse gap-4 xs:justify-between items-center xs:flex-row ">
-                <div >
+                <div ref={cartRef} >
                     <CartIcon />
                     {!hidden &&
                         <div className='xs:top-32 top-16 right-0 xs:right-32 absolute dropdown z-20 ' >
@@ -91,6 +93,7 @@ const Header = () => {
                     }
 
                 </div>
+                <div ref={accountBarRef}>
                 {
                     user && user !== undefined ? (
                         <div onClick={() => dispatch(toggleAccountBar())} className='cursor-pointer  rounded-full border-White hidden xs:block'>
@@ -134,6 +137,7 @@ const Header = () => {
 
                     )
                 }
+                </div>
             </div>
         </header >
     )
