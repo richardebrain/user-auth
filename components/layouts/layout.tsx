@@ -19,7 +19,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     const dispatch = useAppDispatch()
-    const { user: { user },address:{address} } = useAppSelector((state) => state)
+    const { user: { user }, address: { address } } = useAppSelector((state) => state)
     useEffect(() => {
         // listen to user changes
         if (user) return
@@ -32,11 +32,10 @@ const Layout = ({ children }: LayoutProps) => {
                 // get cart item
                 const cartRef = collection(db, 'users', `${userRef.id}/cart`)
                 const cartSnapshot = await getDocs(cartRef)
-
-                const cartItems:IProduct[] = cartSnapshot.docs.map((doc) => {
+                const cartItems: IProduct[] = cartSnapshot.docs.map((doc) => {
                     return {
-                        quantity: doc.data().quantity ,
-                        ...doc.data().product ,
+                        quantity: doc.data().quantity,
+                        ...doc.data().product,
                     }
 
                 })
@@ -48,8 +47,8 @@ const Layout = ({ children }: LayoutProps) => {
                         id: snapShot.id,
                     }),
                 ),
-              dispatch(fetchFromServer(cartItems))
-             
+                    dispatch(fetchFromServer(cartItems))
+
 
             }
         })
@@ -61,15 +60,15 @@ const Layout = ({ children }: LayoutProps) => {
 
     useEffect(() => {
         // listen to address changes
-        if (address.length > 0) return;
+        if (address.length > 0) return
         const unSubscribe = async () => {
             if (!auth?.currentUser) return
             const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
             const eachAddress = addressSnapshot.docs.map((doc) => doc.data()
             )
             dispatch(setAddressFromServer(eachAddress as AddressProps[]))
-
         }
+
         return () => {
             unSubscribe()
         }

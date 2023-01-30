@@ -11,7 +11,7 @@ import AccountLayout from '@components/layouts/account-layout'
 import { getAddressCount } from '@helpers/methods'
 
 const AddressBookPage = () => {
-  
+
   const { address } = useAppSelector(state => state.address)
   if (address.length === 0) return
   const sortedAddress = [...address].sort((a, b) => a.isDefault === b.isDefault ? 0 : a.isDefault ? -1 : 1)
@@ -28,7 +28,6 @@ const AddressBookPage = () => {
           ))
         }
 
-
       </div>
       <div className='w-3/5 flex justify-center bg-white xs:px-4'>
         <Link href={routes.CREATE_ADDRESS} className='bg-Orange w-full rounded-md h-12 text-white flex items-center justify-center hover:bg-orange-500'>
@@ -39,19 +38,22 @@ const AddressBookPage = () => {
   )
 }
 
-AddressBookPage.getLayout = (page: ReactElement) => (
-  <Layout>
-    <AccountLayout>
-      {page}
-    </AccountLayout>
-  </Layout>
+AddressBookPage.getLayout = (page: ReactElement) => {
+  return (
 
-)
+    <Layout>
+      <AccountLayout>
+        {page}
+      </AccountLayout>
+    </Layout>
+
+  )
+}
 
 export default AddressBookPage
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req, res } = context
+  const { req } = context
   const { cookies } = req
   const { user } = cookies
   if (!user) {

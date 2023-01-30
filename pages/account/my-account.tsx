@@ -34,7 +34,8 @@ MyAccount.getLayout = function getLayout(page: ReactElement) {
 
 export default MyAccount
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { req } = context
+
+    const { req,res } = context
     const cookies = req.headers.cookie
     if (!cookies) {
         return {

@@ -31,9 +31,11 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
 
   }, [])
   const getLayout = Component.getLayout ?? ((page) =>
-    <Layout>
-      {page}
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        {page}
+      </Layout>
+    </Provider>
   )
 
   return (
