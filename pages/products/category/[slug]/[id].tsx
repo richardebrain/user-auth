@@ -42,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths = ids.map((product: { id: number; category: string }) => ({ params: { id: product.id.toString(), slug: product.category } }))
     return {
         paths,
-        fallback: true
+        fallback: false
     }
 }
 export const getStaticProps: GetStaticProps = async ({ params }) => {
