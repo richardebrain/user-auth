@@ -4,6 +4,8 @@ import { GetStaticPaths, GetStaticProps, PreviewData } from 'next';
 import ProductList from '@components/products/product-list';
 import { IProduct } from '@helpers/types';
 import { ParsedUrlQuery } from 'querystring';
+import Layout from '@components/layouts/layout';
+import { ReactElement } from 'react';
 
 const ProductPage = ({ data }: { data: IProduct[] }) => {
 
@@ -16,6 +18,14 @@ const ProductPage = ({ data }: { data: IProduct[] }) => {
         </div>
     );
 }
+
+ProductPage.getLayout = function getLayout(page: ReactElement) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }
 
 export default ProductPage;
 export const getStaticPaths: GetStaticPaths = async () => {

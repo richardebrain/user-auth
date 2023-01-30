@@ -1,7 +1,8 @@
+import Layout from '@components/layouts/layout'
 import ForgetModal from '@components/signing/forget-modal'
 import { routes } from '@helpers/routes'
 import Link from 'next/link'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 const ResetPasswordPage = () => {
     return (
@@ -22,4 +23,11 @@ const ResetPasswordPage = () => {
     )
 }
 
+ResetPasswordPage.getLayout = function getLayout(page: ReactElement) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }
 export default ResetPasswordPage

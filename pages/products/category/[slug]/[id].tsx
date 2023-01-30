@@ -1,3 +1,4 @@
+import Layout from '@components/layouts/layout'
 import SingleItem from '@components/products/SingleItem'
 import { IProduct } from '@helpers/types'
 import axios from 'axios'
@@ -5,7 +6,7 @@ import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 type SingleProductPageProps = {
     product: IProduct
@@ -25,7 +26,13 @@ const SingleProductPage = ({ product }: SingleProductPageProps) => {
         </div>
     )
 }
-
+SingleProductPage.getLayout = function getLayout(page: ReactElement) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }
 export default SingleProductPage
 
 

@@ -1,6 +1,7 @@
+import Layout from '@components/layouts/layout'
 import SignUp from '@components/signing/sign-up'
 import { GetServerSideProps } from 'next'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 const SignInAndUpPage = () => {
     return (
@@ -11,7 +12,13 @@ const SignInAndUpPage = () => {
         </div >
     )
 }
-
+SignInAndUpPage.getLayout = function getLayout(page: ReactElement) {
+    return (
+      <Layout>
+        {page}
+      </Layout>
+    )
+  }
 export default SignInAndUpPage
 
 export const getServerSideProps:GetServerSideProps = async (context) => {

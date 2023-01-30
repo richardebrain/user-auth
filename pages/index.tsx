@@ -3,12 +3,14 @@ import axios from 'axios'
 import { IProduct } from '@helpers/types'
 import ProductList from '@components/products/product-list'
 import { productByCategory } from '@helpers/methods'
+import Layout from '@components/layouts/layout'
+import { ReactElement } from 'react'
 
 
 export default function Home({ data }: { data: IProduct[] }) {
- 
+
   if (!data) return <div>loading...</div>
- const products = productByCategory(data)
+  const products = productByCategory(data)
   return (
     <div className=''>
       <Head>
@@ -18,6 +20,14 @@ export default function Home({ data }: { data: IProduct[] }) {
 
 
     </div>
+  )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 

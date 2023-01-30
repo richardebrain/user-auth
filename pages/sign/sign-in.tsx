@@ -1,7 +1,8 @@
+import Layout from '@components/layouts/layout'
 import SignIn from '@components/signing/sign-in'
 import { useAppSelector } from '@helpers/redux.hooks'
 import { GetServerSideProps } from 'next'
-import React, { useEffect } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 
 const SignInPage = () => {
   
@@ -18,6 +19,14 @@ const SignInPage = () => {
   
   return (
     <SignIn />
+  )
+}
+
+SignInPage.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
   )
 }
 
