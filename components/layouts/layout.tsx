@@ -9,9 +9,10 @@ import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks';
 import Header from '../header';
 import { setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
-import { setAddress, setAddressFromServer } from '@utils/Redux/address/address.slice';
+import { setAddressFromServer } from '@utils/Redux/address/address.slice';
 import React from 'react';
-import { addTocCart, fetchFromServer } from '@utils/Redux/cart/cart.slice';
+import {  fetchFromServer } from '@utils/Redux/cart/cart.slice';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -19,6 +20,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
     const dispatch = useAppDispatch()
+    const router = useRouter()
     const { user: { user }, address: { address } } = useAppSelector((state) => state)
     useEffect(() => {
         // listen to user changes
@@ -60,7 +62,7 @@ const Layout = ({ children }: LayoutProps) => {
 
     useEffect(() => {
         // listen to address changes
-        if (address.length > 0) return
+        if ( address.length > 0 && user) return
         const unSubscribe = async () => {
             if (!auth?.currentUser) return
             const addressSnapshot = await getDocs(collection(db, 'address', `${auth.currentUser.uid}/address`))
@@ -68,11 +70,11 @@ const Layout = ({ children }: LayoutProps) => {
             )
             dispatch(setAddressFromServer(eachAddress as AddressProps[]))
         }
-
         return () => {
             unSubscribe()
         }
-    }, [address.length, dispatch])
+    }, [address.length, dispatch,user])
+   
 
 
     return (

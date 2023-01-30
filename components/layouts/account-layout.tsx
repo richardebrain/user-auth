@@ -8,8 +8,8 @@ type accountLayoutProps = {
 }
 
 const AccountLayout = ({ children }: accountLayoutProps) => {
-
     const router = useRouter()
+  
     return (
         <div className='flex justify-between gap-6 font-kumbh px-4'>
             {/* account side bar */}

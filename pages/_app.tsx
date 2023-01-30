@@ -30,7 +30,9 @@ export default function App({ Component, ...rest }: AppPropsWithLayout) {
 
 
   }, [])
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) =>
+      page
+  )
 
   return (
 
