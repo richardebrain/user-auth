@@ -1,6 +1,5 @@
 import { AddressProps, AddressStateProps } from "@helpers/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import { addAddressbyId, editAddressById, setLastItemtoDefault, setDefault, deleteAddress } from "./address-helpers";
 
 const initialState: AddressStateProps = {
@@ -30,10 +29,13 @@ export const addressSlice = createSlice({
         },
         setAddressFromServer: (state, action: PayloadAction<AddressProps[]>) => {
             state.address = action.payload
+        },
+        clearAddress: (state) => {
+            state.address = []
         }
 
     }
 })
 
-export const { setAddress, removeAddress, editAddress, setAsDefault ,setLastToDefault,setAddressFromServer} = addressSlice.actions
+export const { setAddress, removeAddress, editAddress, setAsDefault ,setLastToDefault,setAddressFromServer,clearAddress} = addressSlice.actions
 export default addressSlice.reducer

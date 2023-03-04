@@ -20,6 +20,8 @@ import Sidebar from './sidebar';
 import CloseIcon from '../public/images/icon-close.svg'
 import UserIcon from '../public/images/user.svg'
 import { toast } from 'react-toastify';
+import { clearAddress } from '@utils/Redux/address/address.slice';
+
 
 const Header = () => {
     const dispatch = useAppDispatch()
@@ -33,6 +35,7 @@ const Header = () => {
         await signOut(auth).then(() => {
             deleteCookie(cookiesKey.user)
             dispatch(logout())
+            dispatch(clearAddress())
             toast.success('Logout successful')
 
         })
@@ -51,7 +54,7 @@ const Header = () => {
         <header className=' h-16 xs:h-32 w-full justify-between px-5 xs:px-0  xs:w-[80%] border-b-2 pb-0 flex  items-center mx-auto font-kumbh'>
 
             <div className='flex xs:gap-20 overflow-hidden gap-4  items-center'>
-                <div className='flex xs:hidden flex-col relative w-6 h-6' onClick={() => dispatch(toggleSidebar())} >
+                <div className='flex lg:hidden flex-col relative w-6 h-6' onClick={() => dispatch(toggleSidebar())} >
                     {sidebarView ?
                         <MenuIcon className='cursor-pointer h-6 w-6' />
                         :
@@ -59,7 +62,7 @@ const Header = () => {
                     }
                     {/* sidebar */}
 
-                    <div className={`flex xs:hidden flex-col fixed bg-gray-100 top-[4rem] h-[100vh] ${!sidebarView ? 'animate-left' : '-translate-x-full duration-500 ease-in '} left-0 z-50 w-full  `} ref={sidebarRef}  >
+                    <div className={`flex flex-col fixed bg-gray-100 top-[4rem] h-[100vh] ${!sidebarView ? 'animate-left' : '-translate-x-full duration-500 ease-in '} left-0 z-50 w-full  `} ref={sidebarRef}  >
                         <Sidebar />
                     </div>
                 </div>
@@ -67,7 +70,7 @@ const Header = () => {
                 <div className="nav-item">
                     <Link href="/"><HeaderLogo /></Link>
                 </div>
-                <div className="hidden nav-item xs:flex justify-between gap-8 font-kumbh font-medium">
+                <div className="hidden nav-item lg:flex justify-between gap-8 font-kumbh font-medium">
                     {
                         headerTabs.map((tab) => {
                             return <Link key={tab.name} href={`${tab.route}`}
@@ -82,7 +85,7 @@ const Header = () => {
 
 
             {/* desktop view */}
-            <div className=" nav-item flex xs:w-56  flex-row-reverse gap-4 xs:justify-between items-center xs:flex-row ">
+            <div className=" nav-item flex md:w-56 justify-end flex-row-reverse gap-4 xs:justify-between items-center xs:flex-row ">
                 <div ref={cartRef} >
                     <CartIcon />
                     {!hidden &&
@@ -94,49 +97,75 @@ const Header = () => {
 
                 </div>
                 <div ref={accountBarRef}>
-                {
-                    user && user !== undefined ? (
-                        <div onClick={() => dispatch(toggleAccountBar())} className='cursor-pointer  rounded-full border-White hidden xs:block'>
-                            {user?.picture ?
-                                <Image
-                                    src={user.picture || ''}
-                                    alt="Picture of the user"
-                                    width={60}
-                                    height={60}
-                                    className='rounded-full border-2 hover:border-Orange'
-                                    priority
-                                /> :
-                                // <h6 className='flex items-center hover:text-Orange '>
-                                //     Hi ,{user.displayName || 'My Account'}</h6>
-                                <div className={`xs:flex  xs:w-fit xs:hover:bg-gray-200 xs:h-12 rounded-md items-center px-1 ${!accountBar ? 'xs:bg-gray-200 bg-none' : ''}  ${user ? 'text-Orange' : ''} `}>
+                    {
+                        user && user !== undefined ? (
+                            <div onClick={() => dispatch(toggleAccountBar())} className='cursor-pointer  rounded-full border-White hidden md:block'>
+                                {user?.picture ?
+                                    <Image
+                                        src={user.picture || ''}
+                                        alt="Picture of the user"
+                                        width={60}
+                                        height={60}
+                                        className='rounded-full border-2 hover:border-Orange'
+                                        priority
+                                    /> :
+                                    // <h6 className='flex items-center hover:text-Orange '>
+                                    //     Hi ,{user.displayName || 'My Account'}</h6>
+                                    <div className={`xs:flex  xs:w-fit xs:hover:bg-gray-200 xs:h-12 rounded-md items-center px-1 ${!accountBar ? 'xs:bg-gray-200 bg-none' : ''}  ${user ? 'text-Orange' : ''} `}>
 
-                                    <UserIcon className={`w-8 h-18 flex items-center `} />
-                                    <h2 className='hidden xs:flex xs:w-36 hover:text-Orange'>Hi, {user.displayName}</h2>
-                                </div>
-                            }
-                        </div>
-                    ) : (
-                        <div>
-                            <Link href={routes.SignIn} legacyBehavior ><a className={`text-GB  font-medium ${hoverStyles}`}><UserIcon className='text-black' /></a></Link>
-                        </div>
-                    )
-                }
-                {/* account modal */}
-                {
-                    user && user !== undefined && !accountBar && (
-                        <div className='hidden absolute xs:top-32 top-16 xs:right-44 right-0 bg-white w-48 h-48 rounded-lg shadow-lg z-50 xs:block' >
-                            <div className=''>
-                                <div className='flex flex-col gap-2 font-medium text-Black items-start '>
-                                    <Link href={`${routes.MYACCOUNT}my-account`} className={`${hoverStyles}`} >My Account</Link>
-                                    <Link href={routes.ORDERS} className={`${hoverStyles}`}>My Orders</Link>
-                                    <Link href={routes.WISHLIST} className={`${hoverStyles}`}>My Wishlist</Link>
-                                    <button onClick={() => handleSignOut()} className={`${hoverStyles} cursor-pointer border-t`}>Logout</button>
+                                        <UserIcon className={`w-8 h-18 flex items-center `} />
+                                        <h2 className='hidden md:flex xs:w-36 hover:text-Orange'>Hi, {user.displayName}</h2>
+                                    </div>
+                                }
+                            </div>
+                        ) : (
+                            <div>
+                                <Link
+                                    href={routes.SignIn}
+                                    legacyBehavior className={`text-GB  font-medium `}>
+                                    <UserIcon className='text-black' />
+                                </Link>
+                            </div>
+                        )
+                    }
+                    {/* account modal */}
+                    {
+                        user && user !== undefined && !accountBar && (
+                            <div className='hidden absolute xs:top-32 top-16 xs:right-44 right-0 bg-white w-48 h-48 rounded-lg shadow-lg z-50 xs:block' >
+                                <div className=''>
+                                    <div className='flex flex-col gap-2 font-medium text-Black items-start '>
+                                        <Link
+                                            href={`${routes.MYACCOUNT}my-account`}
+                                            className={`${hoverStyles}`}
+                                            onClick={() => dispatch(toggleAccountBar())}
+                                        >
+                                            My Account
+                                        </Link>
+                                        <Link
+                                            href={routes.ORDERS}
+                                            className={`${hoverStyles}`}
+                                            onClick={() => dispatch(toggleAccountBar())}
+                                        >
+                                            My Orders
+                                        </Link>
+                                        <Link
+                                            href={routes.WISHLIST}
+                                            className={`${hoverStyles}`}
+                                            onClick={() => dispatch(toggleAccountBar())}
+                                        >
+                                            My Wishlist
+                                        </Link>
+                                        <button
+                                            onClick={() => { handleSignOut(), dispatch(toggleAccountBar()) }} className={`${hoverStyles} cursor-pointer border-t`}
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    )
-                }
+                        )
+                    }
                 </div>
             </div>
         </header >

@@ -14,7 +14,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
     const [imageLoading, setImageLoading] = useState<boolean>(true)
 
     return (
-        <Link className='shadow-lg bg-White w-[185px] xs:w-40 h-48 xs:h-40 mb-10 flex flex-col  cursor-pointer gap-2 items-center rounded-md' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
+        <Link className='shadow-lg  w-[185px] xs:w-40 h-48 xs:h-40 mb-10 flex flex-col  cursor-pointer gap-2 items-center rounded-md' href={`${routes.SINGLEPRODUCT}/${product.category}/${product.id}`}>
 
             <div className='flex mt-4 items-center justify-center relative'>
                 {

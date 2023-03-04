@@ -80,7 +80,7 @@ const Layout = ({ children }: LayoutProps) => {
     return (
         <div className='xs:h-[120vh] bg-gray-50'>
             <Header />
-            <main className='w-full mx-auto xs:w-[70%] mt-10 '>
+            <main className='w-full mx-auto xs:w-[80%] mt-10 '>
                 {children}
             </main>
 
