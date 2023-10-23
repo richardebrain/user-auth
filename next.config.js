@@ -2,7 +2,6 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-  output: "export",
   reactStrictMode: true,
   images: {
     domains: [
@@ -10,9 +9,8 @@ const nextConfig = {
       "s.gravatar.com",
       "fakestoreapi.com",
     ],
-    unoptimized: true,
   },
-  basePath: "/user-auth",
+  // basePath: "/user-auth",
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
