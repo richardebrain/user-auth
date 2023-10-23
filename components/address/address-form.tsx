@@ -94,7 +94,6 @@ const AddressForm = () => {
         } else {
 
             await createUserAddress(auth?.currentUser, { ...data, id: id }).then((res) => {
-                console.log(res)
                 dispatch(setAddress({ ...data, id: id }))
                 toast.success('Address Added Successfully', {
                     toastId: 'addressAdded'

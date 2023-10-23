@@ -33,7 +33,6 @@ const Sidebar = () => {
     router.asPath.length > 1
       ? currentPath.split("/").filter(Boolean)[1]
       : router.asPath;
-  console.log(NavPath);
   return (
     <div className="flex flex-col gap-2">
       {/* category */}

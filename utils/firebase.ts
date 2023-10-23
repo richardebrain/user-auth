@@ -53,7 +53,6 @@ export const updateUserProfileDisplayName = async (userAuth: User) => {
   const snapShot = await getDoc(userRef);
   if (snapShot.exists()) {
     const { displayName } = userAuth;
-    console.log(displayName, 'displayName')
     try {
       await updateDoc(userRef, {
         updatedAt: serverTimestamp(),
@@ -74,7 +73,6 @@ export const updateUserProfileEmail = async (userAuth: any) => {
   if (snapShot.exists()) {
     const { email } = userAuth;
 
-    console.log(email, 'email')
     try {
       await updateDoc(userRef, {
         updatedAt: serverTimestamp(),
@@ -94,7 +92,6 @@ export const updateName = async (userAuth: any, data: { firstName?: string, last
   const snapShot = await getDoc(userRef);
   if (snapShot.exists()) {
     const { firstName, lastName } = data;
-    console.log(firstName, lastName, 'name')
     try {
       await updateDoc(userRef, {
         updatedAt: serverTimestamp(),
@@ -155,8 +152,6 @@ export const createUserAddress = async (userAuth: any, addressData?: AddressProp
     }
 
   } else {
-
-    console.log(addressRef, 'doc')
     const snapShot = await getDoc(addressRef);
     if (!snapShot.exists()) {
       const createdAt = new Date()
@@ -208,7 +203,6 @@ export const deleteUserAddressById = async (userAuth: User, item: AddressProps) 
   const userAddressFol = collection(address, `/${userAuth.uid}/address`);
   const allAddress = await getDocs(userAddressFol)
   if (allAddress.size == 1) {
-    console.log('cant delete')
     updateDoc(doc(userAddressFol, item.id), {
       isDefault: true
     })

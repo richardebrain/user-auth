@@ -9,6 +9,7 @@ import { ReactElement } from 'react'
 
 export default function Home({ data }: { data: IProduct[] }) {
 
+
   if (!data) return <div>loading...</div>
   const products = productByCategory(data)
   return (

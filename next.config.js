@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  swcMinify: true,
   images: {
-    domains:["lh3.googleusercontent.com","s.gravatar.com",'fakestoreapi.com']
-    
+    domains: [
+      "lh3.googleusercontent.com",
+      "s.gravatar.com",
+      "fakestoreapi.com",
+    ],
   },
-  webpack(config) {
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],

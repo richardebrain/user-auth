@@ -50,7 +50,6 @@ const SignIn = () => {
           setError("wrong password");
           toast.error("wrong password");
         } else {
-          console.log(error.message);
           toast.error(error.message);
         }
       }

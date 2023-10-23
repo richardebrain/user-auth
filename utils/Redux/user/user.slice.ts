@@ -6,9 +6,7 @@ import { getCookie, deleteCookie } from "cookies-next";
 import { HYDRATE } from "next-redux-wrapper";
 
 const userToken = getCookie(cookiesKey.token);
-// console.log('token',userToken)
 const decodedToken = decodeToken(userToken?.toString() as string);
-console.log(decodedToken);
 const initialState: { user: UserProps | null } = {
   user: null,
 };
