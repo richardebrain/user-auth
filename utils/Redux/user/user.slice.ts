@@ -22,7 +22,7 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.user = null;
     },
-    updateUserProfile: (state, action: PayloadAction<UserProps>) => {
+    updateUserProfile: (state, action: PayloadAction<UserProps | any>) => {
       state.user = {
         ...state.user,
         ...action.payload,
