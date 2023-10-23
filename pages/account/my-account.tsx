@@ -42,24 +42,3 @@ MyAccount.getLayout = function getLayout(page: ReactElement) {
 }
 
 export default MyAccount
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-    const { req, res } = context
-    const { cookies } = req
-
-    if (!cookies.user) {
-        return {
-            redirect: {
-                destination: '/auth/sign-in',
-                permanent: false
-            }
-        }
-    }
-
-    return {
-        props: {
-            cookies
-
-        }
-    }
-}

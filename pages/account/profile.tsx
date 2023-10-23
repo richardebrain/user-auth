@@ -23,22 +23,22 @@ ProfilePage.getLayout = (page: ReactElement) => (
 export default ProfilePage
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { req } = context
-    const cookies = req.headers.cookie
-    if (!cookies) {
-        return {
-            redirect: {
-                destination: '/auth/sign-in',
-                permanent: false
-            }
-        }
-    }
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     const { req } = context
+//     const cookies = req.headers.cookie
+//     if (!cookies) {
+//         return {
+//             redirect: {
+//                 destination: '/auth/sign-in',
+//                 permanent: false
+//             }
+//         }
+//     }
 
-    return {
-        props: {
-            cookies
+//     return {
+//         props: {
+//             cookies
 
-        }
-    }
-}
+//         }
+//     }
+// }

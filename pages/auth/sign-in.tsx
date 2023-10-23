@@ -31,21 +31,21 @@ const SignInPage = () => {
 
 export default SignInPage;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context;
-  const { cookies } = req;
-  const { user } = cookies;
-  if (user) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {
-      cookies,
-    },
-  };
-};
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { req } = context;
+//   const { cookies } = req;
+//   const { user } = cookies;
+//   if (user) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+//   return {
+//     props: {
+//       cookies,
+//     },
+//   };
+// };

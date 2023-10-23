@@ -51,20 +51,3 @@ AddressBookPage.getLayout = (page: ReactElement) => {
 }
 
 export default AddressBookPage
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { req } = context
-  const { cookies } = req
-  const { user } = cookies
-  if (!user) {
-    return {
-      redirect: {
-        destination: routes.SignIn,
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: {},
-  }
-}

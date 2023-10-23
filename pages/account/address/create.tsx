@@ -30,19 +30,3 @@ CreateAddress.getLayout = (page: ReactElement) => (
     </Layout>
 )
 export default CreateAddress
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { req, res } = context
-    const { cookies } = req
-    const { user } = cookies
-    if (!user) {
-        return {
-            redirect: {
-                destination: routes.SignIn,
-                permanent: false,
-            },
-        }
-    }
-    return {
-        props: {},
-    }
-}

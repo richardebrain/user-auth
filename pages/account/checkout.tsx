@@ -4,7 +4,7 @@ import Layout from '@components/layouts/layout'
 import { useAppSelector } from '@helpers/redux.hooks'
 import { routes } from '@helpers/routes'
 import { AddressProps } from '@helpers/types'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticProps } from 'next'
 import React, { ReactElement } from 'react'
 import dynamic from 'next/dynamic'
 
@@ -27,20 +27,3 @@ const Checkout = () => {
 
 
 export default Checkout
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { req, res } = context
-    const { cookies } = req
-    const { user } = cookies
-    if (!user) {
-        return {
-            redirect: {
-                destination: routes.SignIn,
-                permanent: false,
-            },
-        }
-    }
-    return {
-        props: {},
-    }
-}
