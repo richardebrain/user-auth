@@ -6,6 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem",
+          sm: "2rem",
+          lg: "4rem",
+          xl: "5rem",
+          "2xl": "6rem",
+        },
+      },
       colors: {
         VDB: "hsl(220, 13%, 13%)",
         DGB: "hsl(219, 9%, 45%)",
@@ -32,7 +42,6 @@ module.exports = {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(0%)" },
         },
-
       },
     },
     screens: {

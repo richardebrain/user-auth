@@ -13,7 +13,7 @@ const AccountLayout = ({ children }: accountLayoutProps) => {
     return (
         <div className='flex justify-between gap-6 font-kumbh px-4'>
             {/* account side bar */}
-            <div className='hidden xs:w-[25%] h-[30rem] w-full shadow-md bg-white xs:flex justify-start flex-col first:rounded-t-md ' >
+            <div className='hidden xs:w-[25%] h-[30rem] w-full shadow-md bg-white md:flex justify-start flex-col first:rounded-t-md ' >
 
                 {
                     accountBarNav.map((nav, index) =>
@@ -34,7 +34,7 @@ const AccountLayout = ({ children }: accountLayoutProps) => {
             </div>
 
             {/* account content */}
-            <main className='flex-1 h-[64rem] shadow-md bg-White rounded-md xs:block '>
+            <main className='flex-1 h-[64rem] shadow-md bg-White rounded-md'>
                 {children}
             </main>
 

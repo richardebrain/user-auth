@@ -21,7 +21,7 @@ const AddressBookPage = () => {
       <h1 className='flex self-start h-12 py-2 border-b font-semibold px-4 text-xl w-full'>
         Address ({getAddressCount(address)})
       </h1>
-      <div className='flex flex-col w-full xs:grid xs:grid-cols-2 xs:gap-4 px-4'>
+      <div className='flex flex-col w-full xs:grid md:grid-cols-2 xs:gap-4 px-4'>
         {
           sortedAddress.map((item) => (
             <AddressCard key={item.id} addressCard={item} />

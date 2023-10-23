@@ -4,7 +4,7 @@ import { RefObject, useEffect, useRef } from 'react'
 
 type Props = {
     view: boolean,
-    toggleView: ActionCreatorWithoutPayload<string>
+    toggleView: ActionCreatorWithoutPayload
 
 }
 

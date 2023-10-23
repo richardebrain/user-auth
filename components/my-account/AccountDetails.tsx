@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import CustomInput from '@components/forms/input'
-import Button from '@components/Button'
+import Button from '@components/shared/Button'
 import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks'
 import Eyes from '../../public/images/eyes.svg'
 import { auth, updateName, updateUserProfileDisplayName, updateUserProfileEmail } from '@utils/firebase'
@@ -82,7 +82,7 @@ export const AccountDetails = () => {
         }).catch((error) => {
           console.log(error)
         })
-        await updateUserProfileDisplayName(auth.currentUser)
+        await updateUserProfileDisplayName(auth?.currentUser!)
         dispatch(updateUserProfile({ displayName: userName }))
         toast.success('Display Name updated successfully')
         //  router.push(`${routes.MYACCOUNT}my-account`)

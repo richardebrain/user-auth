@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!cookies) {
         return {
             redirect: {
-                destination: '/sign/sign-in',
+                destination: '/auth/sign-in',
                 permanent: false
             }
         }

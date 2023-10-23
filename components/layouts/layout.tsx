@@ -6,7 +6,7 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@helpers/redux.hooks';
 
-import Header from '../header';
+import Header from '../shared/header';
 import { setCookie } from 'cookies-next';
 import { cookiesKey } from '@helpers/methods';
 import { setAddressFromServer } from '@utils/Redux/address/address.slice';

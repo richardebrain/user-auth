@@ -1,17 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { cookiesKey } from "@helpers/methods";
-import { AddressProps, IProduct, ProductItem, UserProps } from "@helpers/types";
-import { setCookie } from "cookies-next";
+import { AddressProps, IProduct } from "@helpers/types";
 import { initializeApp } from "firebase/app";
-import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User, UserCredential, UserInfo, UserMetadata } from "firebase/auth";
+import {  getAuth, GoogleAuthProvider, signInWithPopup, User} from "firebase/auth";
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
-import { toast } from "react-toastify";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
@@ -28,7 +20,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 const users = collection(db, 'users');
 
-export const createUserProfileDocument = async (userAuth: any, additionalData?: any) => {
+export const createUserProfileDocument = async (userAuth: User, additionalData?: any) => {
   if (!userAuth) return;
 
   // setCookie(cookiesKey.user, userAuth.accessToken)
@@ -41,8 +33,6 @@ export const createUserProfileDocument = async (userAuth: any, additionalData?: 
     try {
       await setDoc(userRef, {
         displayName,
-        // firstName,
-        // lastName,
         email,
         createdAt,
         ...additionalData
@@ -57,7 +47,7 @@ export const createUserProfileDocument = async (userAuth: any, additionalData?: 
   return userRef
 }
 
-export const updateUserProfileDisplayName = async (userAuth: any) => {
+export const updateUserProfileDisplayName = async (userAuth: User) => {
   if (!userAuth) return;
   const userRef = doc(users, `${userAuth.uid}`);
   const snapShot = await getDoc(userRef);
@@ -127,7 +117,6 @@ export const googleSignIn = () => {
     (result) => {
       const credentials = GoogleAuthProvider.credentialFromResult(result);
       const { user } = result;
-
       return user;
     }
   ).catch((error) => {
@@ -142,7 +131,7 @@ export const createUserAddress = async (userAuth: any, addressData?: AddressProp
   // const addressRef = doc(address, `${userAuth.uid}`);
   const userAddressFol = collection(address, `/${userAuth.uid}/address`);
   const addressRef = doc(userAddressFol, addressData?.id!);
-  // check if there is address is empty
+  // check if there is address
 
   const addressSnapshot = await getDocs(collection(db, 'address', `${userAuth.uid}/address`))
   if (addressSnapshot.size == 0) {

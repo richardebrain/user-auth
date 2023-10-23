@@ -2,8 +2,8 @@ export const routes = {
     HOME: '/',
     PRODUCT: '/products',
     CART: '/cart',
-    SignUp: '/sign/sign-up',
-    SignIn: '/sign/sign-in',
+    SignUp: '/auth/sign-up',
+    SignIn: '/auth/sign-in',
     CATEGORY: {
         ELECTRONICS: '/products/electronics',
         MENSCLOTHING: '/products/men\'s clothing',
@@ -11,11 +11,11 @@ export const routes = {
         JEWELERY: '/products/jewelery',
     },
     ORDERS: '/account/orders',
-    MYACCOUNT: '/account/',
+    MYACCOUNT: '/account',
     SINGLEPRODUCT: '/products/category',
-    RESETPASSWORD: '/sign/password-reset',
+    RESETPASSWORD: '/auth/password-reset',
     CHECKOUT: '/account/checkout',
-    ADDRESS: '/account/address/',
+    ADDRESS: '/account/address',
     CREATE_ADDRESS: '/account/address/create',
     WISHLIST: '/account/wishlist'
 
@@ -52,24 +52,24 @@ export const headerTabs: HeaderTabs[] = [
 export const accountBarNav = [
     {
         name: 'Account Overview',
-        path: `${routes.MYACCOUNT}my-account`
+        path: `${routes.MYACCOUNT}/my-account`
 
     },
     {
         name: 'Address Book',
-        path: `${routes.MYACCOUNT}address`
+        path: `${routes.MYACCOUNT}/address`
 
     },
     {
         name: 'My Orders',
-        path: `${routes.MYACCOUNT}orders`
+        path: `${routes.MYACCOUNT}/orders`
     },
     {
         name: 'My Wishlist',
-        path: `${routes.MYACCOUNT}wishlist`
+        path: `${routes.MYACCOUNT}/wishlist`
     },
     {
         name: 'Account Details',
-        path: `${routes.MYACCOUNT}profile`
+        path: `${routes.MYACCOUNT}/profile`
     },
 ]

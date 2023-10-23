@@ -1,4 +1,4 @@
-import Button from '@components/Button'
+import Button from '@components/shared/Button'
 import CustomInput from '@components/forms/input'
 import React from 'react'
 import * as yup from 'yup'

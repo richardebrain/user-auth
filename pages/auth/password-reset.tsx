@@ -1,12 +1,11 @@
-import Layout from '@components/layouts/layout'
-import ForgetModal from '@components/signing/forget-modal'
+import ForgetModal from '@components/auth/forget-modal'
 import { routes } from '@helpers/routes'
 import Link from 'next/link'
 import React, { ReactElement } from 'react'
 
 const ResetPasswordPage = () => {
     return (
-        <div className='flex flex-col shadow-md bg-white w-[90%] xs:w-[30%]   rounded-md justify-between gap-6 mx-auto'>
+        <div className='flex flex-col shadow-md bg-white w-[90%] xs:w-[30%] rounded-md justify-between gap-6 mx-auto mt-40'>
             <div className='flex items-center w-full h-20 flex-col  '>
                 <h1 className='border-b w-full text-center font-bold text-3xl py-6'>Forgot Password</h1>
 
@@ -25,9 +24,9 @@ const ResetPasswordPage = () => {
 
 ResetPasswordPage.getLayout = function getLayout(page: ReactElement) {
     return (
-      <Layout>
+      <>
         {page}
-      </Layout>
+      </>
     )
   }
 export default ResetPasswordPage

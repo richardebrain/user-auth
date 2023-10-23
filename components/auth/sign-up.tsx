@@ -1,19 +1,16 @@
 import React, { useState } from 'react'
 import CustomInput from '../forms/input'
 import { useForm } from 'react-hook-form'
-import Button from '../Button'
-import axios from 'axios'
+import Button from '../shared/Button'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Router, { useRouter } from 'next/router'
+import  { useRouter } from 'next/router'
 import Spinner from '../Spinner'
-import { auth, createUserProfileDocument, googleSignIn } from '@utils/firebase'
+import { auth, createUserProfileDocument } from '@utils/firebase'
 import Link from 'next/link'
 import { routes } from '@helpers/routes'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import Eye from '../../public/images/eyes.svg'
-import { setCookie } from 'cookies-next'
-import { cookiesKey } from '@helpers/methods'
 
 interface IForm {
     firstname: string,
@@ -50,7 +47,7 @@ const SignUp = () => {
         } catch (error) {
             if (error instanceof Error) {
                 if (error.message === 'Firebase: Error (auth/email-already-in-use).')
-                    setError('email already in use')
+                setError('email already in use')
                 console.log(error.message)
             }
 
