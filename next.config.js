@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output:'export',
-  experimental:false,
   reactStrictMode: true,
   images: {
     domains: [
@@ -11,6 +10,7 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
+  basePath:'/user-auth',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
